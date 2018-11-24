@@ -10,6 +10,9 @@ class rules
 public:
     rules();
     void sprawdz();
+    void wygrana();
+    void przegrana();
+    int random(int nMin, int nMax);
 
     ~rules();
 };

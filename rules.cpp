@@ -39,3 +39,42 @@ rules::~rules()
 {
 
 }
+void rules::wygrana()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("WYGRAŁEŚ");
+    msgBox.setText("Jeszcze raz?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    if(msgBox.exec() == QMessageBox::No){
+        exit(0);
+    }
+    else
+    {
+        start s;
+        s.setModal(true);
+        s.exec();
+    }
+}
+void rules::przegrana()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("PRZEGRAŁEŚ");
+    msgBox.setText("Jeszcze raz?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    if(msgBox.exec() == QMessageBox::No){
+        exit(0);
+    }
+    else
+    {
+        start s;
+        s.setModal(true);
+        s.exec();
+    }
+}
+int rules::random(int nMin, int nMax)
+{
+    //srand((unsigned int)time((time_t *)NULL));
+    return rand() % (nMax - nMin + 1 ) + nMin;
+}

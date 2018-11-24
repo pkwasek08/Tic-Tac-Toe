@@ -22,20 +22,18 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    QPushButton *buttons[30][30]{};
+    QPushButton *buttons[30][30]{},butt{};
     QObject* button = QObject::sender();
     QGridLayout *view=new QGridLayout();
-public:
-    int wr,kol;
-
+    int wr{},kol{};
     void Plansza();
-
-private slots:
+    void AI();
 
 private:
     Ui::MainWindow *ui;
-
-    int w_r,k_r;
+    int w_r{},k_r{};
+    int max_w{};
+    int max_k{};
 
 private slots:
     void Klik(); //ruch gracza
