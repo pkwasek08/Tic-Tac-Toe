@@ -2,6 +2,7 @@
 #define RULES_H
 
 #include "mainwindow.h"
+#include <QMainWindow>
 #include <QPixmap>
 #include <QtWidgets>
 class rules
@@ -9,9 +10,8 @@ class rules
 public:
     rules();
     void sprawdz();
-    int wr_r,kol_r;
 
-
+    ~rules();
 };
 
 #endif // RULES_H

@@ -14,23 +14,24 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+}
+void MainWindow::Plansza()
+{
     rules r;
     start s;
     s.setModal(true);
     s.exec();
     wr = s.wiersze.split(" ")[0].toInt();
     kol = s.kolunmy.split(" ")[0].toInt();
-    r.wr_r=wr;
-    r.kol_r=kol;
     for(int i=0;i<wr;i++)
     {
         for(int j=0;j<kol;j++)
         {
-            buttons[i][j]=new QPushButton();
-            buttons[i][j]->setMinimumWidth(60);
-            buttons[i][j]->setMinimumHeight(60);
-            view->addWidget(buttons[i][j],i,j);
-            connect(buttons[i][j],SIGNAL(released()),this,SLOT(Klik()));
+            this->buttons[i][j]=new QPushButton();
+            this->buttons[i][j]->setMinimumWidth(60);
+            this->buttons[i][j]->setMinimumHeight(60);
+            view->addWidget(this->buttons[i][j],i,j);
+            connect(this->buttons[i][j],SIGNAL(released()),this,SLOT(Klik()));
         }
     }
 
@@ -46,16 +47,13 @@ MainWindow::MainWindow(QWidget *parent) :
     buttons[w_r][k_r]->setText("x");
     buttons[w_r][k_r]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
     buttons[w_r][k_r]->setDisabled(1);
-
-
-}
-void MainWindow::Plansza()
-{
-
 }
 MainWindow::~MainWindow()
 {
     delete ui;
+    free(buttons);
+    delete button;
+    //delete buttons[30][30];
 }
 
 void MainWindow::Klik()
@@ -71,8 +69,11 @@ void MainWindow::Klik()
                 buttons[i][j]->setText("o");
                 buttons[i][j]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
                 buttons[i][j]->setDisabled(1);
+
             }
 
-        }
     }
+
+    }
+   //r.sprawdz();
 }

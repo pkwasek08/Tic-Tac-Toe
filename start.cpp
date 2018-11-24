@@ -32,12 +32,12 @@ void start::on_buttonBox_accepted()
         msgBox.setText("Podaj liczbę większą od 0");
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.QMessageBox::Warning;
+        //msgBox.QMessageBox::Warning;
         if(msgBox.exec() == QMessageBox::Ok){
             ui->lineEdit->clear();
             ui->lineEdit_2->clear();
             MainWindow w;
-            w.show();
+            w.Plansza();
         }else {
           exit(0);
         }
