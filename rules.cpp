@@ -9,32 +9,6 @@ rules::rules()
 
 }
 
-void rules::sprawdz()
-{
-    MainWindow ma;
-    //start s;
-    //    for(int i=0;i<wr_r;i++)
-    //    {
-    //        for(int j=0;j<kol_r;j++)
-    //        {
-
-    if(ma.buttons[1][1]->text()=="o" && ma.buttons[2][2]->text()=="o" && ma.buttons[3][3]->text()=="o")
-    {
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("WYGRANA");
-        msgBox.setText("WYGRAŁEŚ");
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        if(msgBox.exec() == QMessageBox::Ok){
-            exit(0);
-        }
-        //            }
-        //        }
-
-
-    }
-}
-
 rules::~rules()
 {
 
@@ -71,10 +45,51 @@ void rules::przegrana()
         start s;
         s.setModal(true);
         s.exec();
+
     }
 }
 int rules::random(int nMin, int nMax)
 {
-    //srand((unsigned int)time((time_t *)NULL));
+    srand((unsigned int)time((time_t *)NULL));
     return rand() % (nMax - nMin + 1 ) + nMin;
 }
+void rules::sprawdz(QPushButton **buttons,int i,int j,int kol,int wr,QString z)
+{
+    if(kol<8 && kol<8)
+    {
+        if(j<kol/2 && i<wr/2)
+        {
+            if((buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) ||
+                    ( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z) ||
+                    (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+1]->text()==z))
+                if(z=="o") wygrana(); else przegrana();
+        }else
+        {
+            if((buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) ||
+                    ( buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) ||
+                    (buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-1]->text()==z))
+                if(z=="o") wygrana(); else przegrana();
+        }
+    }else
+        if(j<kol/2 && i<wr/2)
+        {
+            if((buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z &&
+                buttons[j + i * kol+3]->text()==z && buttons[j + i * kol+4]->text()==z) ||
+                    ( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z &&
+                      buttons[j + (i+3) * kol]->text()==z && buttons[j + (i+4) * kol]->text()==z)||
+                    (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+1]->text()==z &&
+                     buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z))
+                if(z=="o") wygrana(); else przegrana();
+        }else
+        {
+            if((buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z &&
+                buttons[j + i * kol-3]->text()==z && buttons[j + i * kol-4]->text()==z) ||
+                    ( buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z &&
+                      buttons[j + (i-3) * kol]->text()==z && buttons[j + (i-4) * kol]->text()==z)||
+                    (buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-1]->text()==z &&
+                     buttons[j + (i-3) * kol-3]->text()==z && buttons[j + (i-4) * kol-4]->text()==z))
+                if(z=="o") wygrana(); else przegrana();
+        }
+}
+
+

@@ -28,13 +28,11 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     start.cpp \
-    game.cpp \
     rules.cpp
 
 HEADERS += \
         mainwindow.h \
     start.h \
-    game.h \
     rules.h
 
 FORMS += \

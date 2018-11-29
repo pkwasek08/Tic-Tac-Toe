@@ -6,6 +6,10 @@
 #include "game.h"
 #include <QPixmap>
 #include <QtWidgets>
+#include <QApplication>
+#include <QWidget>
+#include <QGridLayout>
+
 
 
 namespace Ui {
@@ -22,9 +26,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    QPushButton *buttons[30][30]{},butt{};
+    QPushButton **buttons;
+    const QSize btnSize = QSize(60, 60);
     QObject* button = QObject::sender();
-    QGridLayout *view=new QGridLayout();
+     //auto gridLayout = new QGridLayout(&mainWindow);
+    QVBoxLayout *view=new QVBoxLayout();
+    QWidget w;
     int wr{},kol{};
     void Plansza();
     void AI();
