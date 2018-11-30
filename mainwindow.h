@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include "start.h"
-#include "game.h"
 #include <QPixmap>
 #include <QtWidgets>
 #include <QApplication>

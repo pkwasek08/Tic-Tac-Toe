@@ -3,7 +3,6 @@
 #include "start.h"
 #include <QPixmap>
 #include <QtWidgets>
-#include "game.h"
 #include "rules.h"
 using namespace std;
 

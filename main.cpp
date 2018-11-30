@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "start.h"
-#include "game.h"
 #include <QApplication>
 #include "rules.h"
 
