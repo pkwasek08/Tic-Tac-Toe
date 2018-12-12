@@ -15,7 +15,7 @@ public:
     void przegrana();
     int random(int nMin, int nMax);
     void sprawdz(QPushButton **tab,const int kol=0,const int wr=0,const QString z="o");
-    int tmp;
+    int tmp; //i=0,j=0;
 
     ~rules();
 };
