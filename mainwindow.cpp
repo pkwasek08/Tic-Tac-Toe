@@ -15,17 +15,19 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::Plansza()
 {
     rules r;
-    start s;
-    s.setModal(true);
-    s.exec();
-    wr = s.wiersze.split(" ")[0].toInt(); //zamienia string na int
-    kol = s.kolunmy.split(" ")[0].toInt();
+   // start s;
+    //s.setModal(true);
+    //s.exec();
+    //wr = s.wiersze.split(" ")[0].toInt(); //zamienia string na int
+    //kol = s.kolunmy.split(" ")[0].toInt();
 
+    wr = 10;
+    kol = 10;
     buttons=new QPushButton *[wr*kol];
 
     for(int i = 0; i < wr*kol; i++) {
         buttons[i] = new QPushButton(ui->centralWidget);
-        buttons[i]->setText(":)");
+        buttons[i]->setText("( ͡° ͜ʖ ͡°)");
         buttons[i]->setFixedSize(btnSize);
     }
 
@@ -74,7 +76,7 @@ void MainWindow::Klik()
                 buttons[j + i * kol]->setText("o");
                 buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
                 buttons[j + i * kol]->setDisabled(1);
-                r.sprawdz(buttons,i,j,kol,wr,"o");
+                r.sprawdz(buttons,kol,wr,"o");
             }
         }
     }

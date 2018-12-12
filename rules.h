@@ -10,10 +10,12 @@ class rules
 {
 public:
     rules();
+    //MainWindow *w_new;
     void wygrana();
     void przegrana();
     int random(int nMin, int nMax);
-    void sprawdz(QPushButton **tab,int i=0,int j=0,int kol=0,int wr=0,QString z="o");
+    void sprawdz(QPushButton **tab,const int kol=0,const int wr=0,const QString z="o");
+    int tmp;
 
     ~rules();
 };
