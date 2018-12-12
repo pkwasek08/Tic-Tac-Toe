@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 }
 void MainWindow::Plansza()
 {
@@ -60,6 +61,12 @@ void MainWindow::Plansza()
 MainWindow::~MainWindow()
 {
     delete ui;
+   for (int i=0; i<wr; i++)
+       {
+          delete [] buttons[i];
+       }
+    delete [] buttons;
+   //close();
 }
 
 //pojawienie sie kołka + sprawdzenie
@@ -77,6 +84,9 @@ void MainWindow::Klik()
                 buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
                 buttons[j + i * kol]->setDisabled(1);
                 r.sprawdz(buttons,kol,wr,"o");
+               /* MainWindow *w = new MainWindow;
+                 w->Plansza();
+                 w->show();*/
             }
         }
     }
@@ -84,36 +94,5 @@ void MainWindow::Klik()
 
 void MainWindow::AI()
 {
-    rules r;
-    int w_ai{},k_ai{};
-
-    /*for(;;)
-        {
-
-     if(buttons[w_ai][k_ai-1]->text()=="o"||buttons[w_ai-1][k_ai-1]||buttons[w_ai][k_ai+1] ||
-            buttons[w_ai-1][k_ai]||buttons[w_ai+1][k_ai]||buttons[w_ai+1][k_ai+1]||
-           buttons[w_ai+1][k_ai-1]||buttons[w_ai-1][k_ai+1])
-
-      if(w_r==0 || k_r==0) {w_r=1; k_r=1;}
-    if(w_r==max_w || k_r==max_k) {w_r=max_w-1; k_r=max_k-1;}
-
-          if(buttons[w_r][k_r-1]->text()=="o"){k_ai=r.random(k_r-2,k_r+1); w_ai=w_r;break;}
-          if(buttons[w_r][k_r+1]->text()=="o"){k_ai=r.random(k_r-2,k_r+1); w_ai=w_r;break;}
-          while (buttons[w_ai][k_ai]->text()=="x")
-          {
-
-              w_ai=r.random(w_r-1,w_r+1);
-              k_ai=r.random(k_r-1,k_r+1);
-              break;
-        }
-
-    }*/
-    // Sleep(1000);
-    buttons[k_ai + w_ai * kol]->setText("x");
-    buttons[k_ai + w_ai * kol]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
-    buttons[k_ai + w_ai * kol]->setDisabled(1);
-
-    w_r=w_ai;
-    k_r=k_ai;
 
 }

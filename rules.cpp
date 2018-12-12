@@ -6,7 +6,6 @@
 #include <QtWidgets>
 rules::rules()
 {
-
 }
 
 rules::~rules()
@@ -15,32 +14,43 @@ rules::~rules()
 }
 void rules::wygrana()
 {
-    QMessageBox msgBox;
     msgBox.setWindowTitle("WYGRAŁEŚ");
     msgBox.setText("Jeszcze raz?");
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    if(msgBox.exec() == QMessageBox::No){
-        exit(0);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    if(msgBox.exec() == QMessageBox::No){   
+        //delete w;
+     exit(0);
     }
     else
     {
+         w[0].repaint();
+         w[0].hide();
+         w[1].Plansza();
+         w[1].show();
     }
 }
 void rules::przegrana()
 {
-    QMessageBox msgBox;
-    msgBox.setWindowTitle("PRZEGRAŁEŚ");
-    msgBox.setText("Jeszcze raz?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Ok);
-    if(msgBox.exec() == QMessageBox::No){
+    msgBox2.setWindowTitle("PRZEGRAŁEŚ");
+    msgBox2.setText("Jeszcze raz?");
+    msgBox2.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox2.setDefaultButton(QMessageBox::Ok);
+    if(msgBox2.exec() == QMessageBox::No){
         exit(0);
     }
     else
     {
+       // MainWindow ww;
+
 
     }
+}
+void rules::restart(QWidget *parent)
+{
+    parent->update();
+
+
 }
 int rules::random(int nMin, int nMax)
 {
@@ -87,10 +97,11 @@ void rules::sprawdz(QPushButton **buttons,const int kol,const int wr,const QStri
                         if(z=="o") wygrana(); else przegrana();
                 }
                 if(j<=kol/2)
+                {
                     if((buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z &&
                         buttons[j + i * kol+3]->text()==z && buttons[j + i * kol+4]->text()==z))//poziom lewy
                         if(z=="o") wygrana(); else przegrana();
-                    else if(j>kol/2)
+                   } else if(j>kol/2)
                         if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z &&
                                 buttons[j + i * kol-3]->text()==z && buttons[j + i * kol-4]->text()==z)//poziom prawy
                             if(z=="o") wygrana(); else przegrana();

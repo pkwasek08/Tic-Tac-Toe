@@ -9,9 +9,11 @@
 class rules
 {
 public:
+    QMessageBox msgBox{},msgBox2{};
+    void restart(QWidget *parent);
     rules();
-    //MainWindow *w_new;
     void wygrana();
+    MainWindow *w = new MainWindow[2];
     void przegrana();
     int random(int nMin, int nMax);
     void sprawdz(QPushButton **tab,const int kol=0,const int wr=0,const QString z="o");

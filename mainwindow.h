@@ -10,7 +10,6 @@
 #include <QGridLayout>
 
 
-
 namespace Ui {
 class MainWindow;
 
@@ -34,9 +33,13 @@ public:
     int wr{},kol{};
     void Plansza();
     void AI();
+    void wygrana();
+    int choose{};
+    void przegrana();
+    Ui::MainWindow *ui;
 
 private:
-    Ui::MainWindow *ui;
+
     int w_r{},k_r{};
     int max_w{};
     int max_k{};

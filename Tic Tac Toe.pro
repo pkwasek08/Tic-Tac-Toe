@@ -33,11 +33,12 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     start.h \
-    rules.h
+    rules.h \
+    mainwindow.h
 
 FORMS += \
-        mainwindow.ui \
-    start.ui
+    start.ui \
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
