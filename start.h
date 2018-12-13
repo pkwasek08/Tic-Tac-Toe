@@ -14,7 +14,11 @@ class start : public QDialog
 public:
     explicit start(QWidget *parent = nullptr);
     ~start();
-    QString wiersze,kolunmy;
+    QString wiersze{},kolunmy{};
+    void create_game();
+    void wygrana();
+        void przegrana();
+        int rest{};
 private slots:
     void on_buttonBox_accepted();
 

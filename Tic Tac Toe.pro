@@ -28,17 +28,23 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     start.cpp \
-    rules.cpp
+    rules.cpp \
+    wybor.cpp \
+    test.cpp
 
 HEADERS += \
         mainwindow.h \
     start.h \
     rules.h \
-    mainwindow.h
+    mainwindow.h \
+    wybor.h \
+    test.h
 
 FORMS += \
     start.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    wybor.ui \
+    test.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

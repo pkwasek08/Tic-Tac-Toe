@@ -8,10 +8,17 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    rules r;
+
+    start s;
+    s.setModal(true);
+    s.exec();
+
+
+    /*rules r;
      r.w[0].Plansza();
-     r.w[0].show();
-   /* MainWindow m;
+     r.w[0].show();*/
+
+   /*MainWindow m;
     m.Plansza();
     m.show();
 */

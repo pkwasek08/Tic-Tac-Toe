@@ -23,7 +23,7 @@ void MainWindow::Plansza()
     //kol = s.kolunmy.split(" ")[0].toInt();
 
     wr = 10;
-    kol = 10;
+   kol = 10;
     buttons=new QPushButton *[wr*kol];
 
     for(int i = 0; i < wr*kol; i++) {
@@ -84,9 +84,9 @@ void MainWindow::Klik()
                 buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
                 buttons[j + i * kol]->setDisabled(1);
                 r.sprawdz(buttons,kol,wr,"o");
-               /* MainWindow *w = new MainWindow;
-                 w->Plansza();
-                 w->show();*/
+                if(*res==1)
+                    buttons[0]->setText("Dupa");
+
             }
         }
     }

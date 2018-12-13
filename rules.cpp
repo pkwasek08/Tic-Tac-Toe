@@ -12,40 +12,8 @@ rules::~rules()
 {
 
 }
-void rules::wygrana()
-{
-    msgBox.setWindowTitle("WYGRAŁEŚ");
-    msgBox.setText("Jeszcze raz?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    if(msgBox.exec() == QMessageBox::No){   
-        //delete w;
-     exit(0);
-    }
-    else
-    {
-         w[0].repaint();
-         w[0].hide();
-         w[1].Plansza();
-         w[1].show();
-    }
-}
-void rules::przegrana()
-{
-    msgBox2.setWindowTitle("PRZEGRAŁEŚ");
-    msgBox2.setText("Jeszcze raz?");
-    msgBox2.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox2.setDefaultButton(QMessageBox::Ok);
-    if(msgBox2.exec() == QMessageBox::No){
-        exit(0);
-    }
-    else
-    {
-       // MainWindow ww;
 
 
-    }
-}
 void rules::restart(QWidget *parent)
 {
     parent->update();
@@ -69,42 +37,45 @@ void rules::sprawdz(QPushButton **buttons,const int kol,const int wr,const QStri
                 if(i<wr/2)
                 {
                     if( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z) //pion
-                        if(z=="o") wygrana(); else przegrana();
+                        if(z=="o") s->wygrana(); else s->przegrana();
                 }
                 else if(i>=wr/2)
                 {
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) //pion
-                        if(z=="o") wygrana(); else przegrana();
+                        if(z=="o") s->wygrana(); else s->przegrana();
                 }
                 if(j<=kol/2)
                     if(buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) //poziom +
-                        if(z=="o") wygrana(); else przegrana();
+                        if(z=="o") s->wygrana(); else s->przegrana();
                     else if(j>kol/2)
                         if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom -
-                            if(z=="o") wygrana(); else przegrana();
+                            if(z=="o") s->wygrana(); else s->przegrana();
             }else
             {
                 if(i<wr/2)
                 {
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z &&
-                            buttons[j + (i+3) * kol]->text()==z && buttons[j + (i+4) * kol]->text()==z) //pion gora
-                        if(z=="o") wygrana(); else przegrana();
-                }
+                            buttons[j + (i+3) * kol]->text()==z && buttons[j + (i+4) * kol]->text()==z)
+                        {//pion gora
+                        //if(z=="o") *res=1;}//s->wygrana(); else s->przegrana();
+
+                }}
                 else if(i>=wr/2)
                 {
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z &&
                             buttons[j + (i-3) * kol]->text()==z && buttons[j + (i-4) * kol]->text()==z)//pion dol
-                        if(z=="o") wygrana(); else przegrana();
-                }
+                    {//pion gora
+                    //if(z=="o") *res=1;}//s->wygrana(); else s->przegrana();
+                }}
                 if(j<=kol/2)
                 {
                     if((buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z &&
                         buttons[j + i * kol+3]->text()==z && buttons[j + i * kol+4]->text()==z))//poziom lewy
-                        if(z=="o") wygrana(); else przegrana();
+                        if(z=="o") s->wygrana(); else s->przegrana();
                    } else if(j>kol/2)
                         if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z &&
                                 buttons[j + i * kol-3]->text()==z && buttons[j + i * kol-4]->text()==z)//poziom prawy
-                            if(z=="o") wygrana(); else przegrana();
+                            if(z=="o") s->wygrana(); else s->przegrana();
             }
         }
     }
@@ -118,12 +89,12 @@ void rules::sprawdz(QPushButton **buttons,const int kol,const int wr,const QStri
                     buttons[j + (i-3) * kol-3]->text()==z && buttons[j + (i-4) * kol-4]->text()==z) || //skos 1 kierunek
                         (buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z &&
                          buttons[j + (i-3) * kol+3]->text()==z && buttons[j + (i-4) * kol+4]->text()==z)) //skos 2 kierunek))
-                    if(z=="o") wygrana(); else przegrana();
+                    if(z=="o") s->wygrana(); else s->przegrana();
                 }else
                 {
                     if((buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z) //skos 1 kierunek
                         || (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z))
-                    if(z=="o") wygrana(); else przegrana();//skos 2 kierunek)
+                    if(z=="o") s->wygrana(); else s->przegrana();//skos 2 kierunek)
                 }
             }
             tmp++;
@@ -139,12 +110,12 @@ void rules::sprawdz(QPushButton **buttons,const int kol,const int wr,const QStri
                     buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z) || //skos 1 kierunek
                         (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z &&
                          buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z))
-                    if(z=="o") wygrana(); else przegrana(); //skos 2 kierunek
+                    if(z=="o") s->wygrana(); else s->przegrana(); //skos 2 kierunek
                 }else
                 {
                     if((buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z) //skos1 maly
                     || (buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z)) //skos2 maly
-                        if(z=="o") wygrana(); else przegrana(); //skos 2 kierunek
+                        if(z=="o") s->wygrana(); else s->przegrana(); //skos 2 kierunek
                 }
             }
             tmp--;

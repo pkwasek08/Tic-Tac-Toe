@@ -36,7 +36,9 @@ public:
     void wygrana();
     int choose{};
     void przegrana();
+    int rest{};
     Ui::MainWindow *ui;
+    int *res{};
 
 private:
 
