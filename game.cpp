@@ -107,62 +107,101 @@ void Game::sprawdz(const QString z)
                 if(i<wr/2)
                 {
                     if( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z) //pion
-                        if(z=="o") koniec("o"); else koniec("x");
+                        if(zab==0)
+                        {
+                            if(z=="o") koniec("o"); else koniec("x");
+                            zab++;
+                        }
                 }
                 else if(i>=wr/2)
                 {
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) //pion
-                        if(z=="o") koniec("o"); else koniec("x");
+                        if(zab==0)
+                        {
+                            if(z=="o") koniec("o"); else koniec("x");
+                            zab++;
+                        }
                 }
                 if(j<=kol/2)
                     if(buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) //poziom +
-                        if(z=="o") koniec("o"); else koniec("x");
-                    else if(j>kol/2)
-                        if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom -
+                        if(zab==0)
+                        {
                             if(z=="o") koniec("o"); else koniec("x");
+                            zab++;
+                        }
+                        else if(j>kol/2)
+                            if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom -
+                                if(zab==0)
+                                {
+                                    if(z=="o") koniec("o"); else koniec("x");
+                                    zab++;
+                                }
             }else
             {
                 if(i<wr/2)
                 {
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z &&
                             buttons[j + (i+3) * kol]->text()==z && buttons[j + (i+4) * kol]->text()==z) //pion gora
-                    {
-                        if(z=="o") koniec("o"); else koniec("x");
-                    }}
+                        if(zab==0)
+                        {
+                            if(z=="o") koniec("o"); else koniec("x");
+                            zab++;
+                        }
+                }
                 else if(i>=wr/2)
                 {
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z &&
                             buttons[j + (i-3) * kol]->text()==z && buttons[j + (i-4) * kol]->text()==z)//pion dol
-                    {if(z=="o") koniec("o"); else koniec("x");
-                    }}
+                        if(zab==0)
+                        {
+                            if(z=="o") koniec("o"); else koniec("x");
+                            zab++;
+                        }
+                }
                 if(j<=kol/2)
                 {
                     if((buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z &&
                         buttons[j + i * kol+3]->text()==z && buttons[j + i * kol+4]->text()==z))//poziom lewy
-                        if(z=="o") koniec("o"); else koniec("x");
+                        if(zab==0)
+                        {
+                            if(z=="o") koniec("o"); else koniec("x");
+                            zab++;
+                        }
                 } else if(j>kol/2)
                     if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z &&
                             buttons[j + i * kol-3]->text()==z && buttons[j + i * kol-4]->text()==z)//poziom prawy
-                        if(z=="o") koniec("o"); else koniec("x");
+                        if(zab==0)
+                        {
+                            if(z=="o") koniec("o"); else koniec("x");
+                            zab++;
+                        }
             }
         }
     }
     for(int i=(wr-1);i>0;i--)
     {
-        for(int j=tmp;j<kol;j++)
+        for(int j=tmp;j<kol-1;j++)
         {
             if(wr>=10 && kol>=10)
             {
-                if((buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z &&
-                    buttons[j + (i-3) * kol-3]->text()==z && buttons[j + (i-4) * kol-4]->text()==z) || //skos 1 kierunek
-                        (buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z &&
-                         buttons[j + (i-3) * kol+3]->text()==z && buttons[j + (i-4) * kol+4]->text()==z)) //skos 2 kierunek))
-                    if(z=="o") koniec("o"); else koniec("x");
+                if((buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)+1]->text()==z && buttons[(j + (i-2) * kol)+2]->text()==z &&
+                         buttons[(j + (i-3) * kol)+3]->text()==z && buttons[(j + (i-4) * kol)+4]->text()==z) || //skos 2 kierunek))
+                        (buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z &&
+                            buttons[(j + (i-3) * kol)-3]->text()==z && buttons[(j + (i-4) * kol)-4]->text()==z))
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }//skos 1 kierunek)
             }else
             {
                 if((buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z) //skos 1 kierunek
                         || (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z))
-                    if(z=="o") koniec("o"); else koniec("x");
+                    if(zab==0)
+                    {
+                        if(z=="o") koniec("o"); else koniec("x");
+                        zab++;
+                    }
             }
         }
         tmp++;
@@ -177,13 +216,21 @@ void Game::sprawdz(const QString z)
                 if((buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z &&
                     buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z) || //skos 1 kierunek
                         (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z &&
-                         buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z))
-                    if(z=="o") koniec("o"); else koniec("x"); //skos 2 kierunek
+                         buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z)) //skos 2 kierunek
+                    if(zab==0)
+                    {
+                        if(z=="o") koniec("o"); else koniec("x");
+                        zab++;
+                    }
             }else
             {
                 if((buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z) //skos1 maly
                         || (buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z)) //skos2 maly
-                    if(z=="o") koniec("o"); else koniec("x"); //skos 2 kierunek
+                    if(zab==0)
+                    {
+                        if(z=="o") koniec("o"); else koniec("x");
+                        zab++;
+                    }
             }
         }
         tmp--;

@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#pragma GCC diagnostic ignored "-Wdangling-else"
 #include <QDialog>
 #include <QMainWindow>
 #include "tttmainwindow.h"

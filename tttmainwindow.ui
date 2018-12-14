@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>540</width>
-    <height>445</height>
+    <width>478</width>
+    <height>449</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>0</x>
       <y>0</y>
-      <width>491</width>
-      <height>441</height>
+      <width>481</width>
+      <height>461</height>
      </rect>
     </property>
     <property name="font">
@@ -113,7 +113,7 @@
      <widget class="QDialogButtonBox" name="buttonBox">
       <property name="geometry">
        <rect>
-        <x>60</x>
+        <x>20</x>
         <y>370</y>
         <width>301</width>
         <height>32</height>
@@ -135,9 +135,9 @@
      <widget class="QComboBox" name="Tryb">
       <property name="geometry">
        <rect>
-        <x>100</x>
-        <y>280</y>
-        <width>111</width>
+        <x>60</x>
+        <y>270</y>
+        <width>131</width>
         <height>41</height>
        </rect>
       </property>
@@ -169,8 +169,8 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>90</x>
-        <y>60</y>
+        <x>60</x>
+        <y>50</y>
         <width>361</width>
         <height>57</height>
        </rect>
@@ -206,15 +206,16 @@
       <property name="font">
        <font>
         <family>Viner Hand ITC</family>
+        <pointsize>16</pointsize>
        </font>
       </property>
      </widget>
      <widget class="QComboBox" name="Znak">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>280</y>
-        <width>111</width>
+        <x>280</x>
+        <y>270</y>
+        <width>131</width>
         <height>41</height>
        </rect>
       </property>
@@ -255,7 +256,7 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>330</x>
+        <x>300</x>
         <y>220</y>
         <width>91</width>
         <height>41</height>
@@ -293,7 +294,7 @@
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>90</x>
         <y>220</y>
         <width>71</width>
         <height>41</height>
@@ -340,6 +341,7 @@
       <property name="font">
        <font>
         <family>Viner Hand ITC</family>
+        <pointsize>16</pointsize>
        </font>
       </property>
      </widget>
