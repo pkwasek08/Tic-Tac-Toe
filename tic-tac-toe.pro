@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-11-12T19:50:08
+# Project created by QtCreator 2018-12-13T19:44:54
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = kik1
+TARGET = tic-tac-toe
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -26,25 +26,19 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    start.cpp \
-    rules.cpp \
-    wybor.cpp \
-    test.cpp
+    game.cpp \
+    tttmainwindow.cpp \
+    resultwindow.cpp
 
 HEADERS += \
-        mainwindow.h \
-    start.h \
-    rules.h \
-    mainwindow.h \
-    wybor.h \
-    test.h
+    game.h \
+    tttmainwindow.h \
+    resultwindow.h
 
 FORMS += \
-    start.ui \
-    mainwindow.ui \
-    wybor.ui \
-    test.ui
+    game.ui \
+    tttmainwindow.ui \
+    resultwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

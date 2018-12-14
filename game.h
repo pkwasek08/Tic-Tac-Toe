@@ -1,28 +1,31 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef GAME_H
+#define GAME_H
 
+#include <QDialog>
 #include <QMainWindow>
-#include "start.h"
+#include "tttmainwindow.h"
 #include <QPixmap>
 #include <QtWidgets>
 #include <QApplication>
 #include <QWidget>
 #include <QGridLayout>
 
-
 namespace Ui {
-class MainWindow;
-
+class Game;
 }
 
-class MainWindow : public QMainWindow
+class Game : public QDialog
 {
     Q_OBJECT
-    friend class rules;
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit Game(QWidget *parent = nullptr);
+    ~Game();
+    void sprawdz(QString z="");
+    void koniec(QString z="");
+    void Plansza(QString wr_ustawione, QString kol_ustawione);
+    void AI();
+    int random(int nMin, int nMax);
 
     QPushButton **buttons;
     const QSize btnSize = QSize(60, 60);
@@ -30,19 +33,13 @@ public:
      //auto gridLayout = new QGridLayout(&mainWindow);
     QVBoxLayout *view=new QVBoxLayout();
     QWidget w;
+    int tmp_restart{};
+    int tmp;
     int wr{},kol{};
-    void Plansza();
-    void AI();
-    void wygrana();
-    int choose{};
-    void przegrana();
-    int rest{};
-    Ui::MainWindow *ui;
-    int *res{};
+    int w_r{},k_r{};
 
 private:
 
-    int w_r{},k_r{};
     int max_w{};
     int max_k{};
 
@@ -50,7 +47,8 @@ private slots:
     void Klik(); //ruch gracza
 
 
-
+private:
+    Ui::Game *ui;
 };
 
-#endif // MAINWINDOW_H
+#endif // GAME_H

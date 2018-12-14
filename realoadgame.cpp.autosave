@@ -1,0 +1,27 @@
+#include "realoadgame.h"
+#include "ui_realoadgame.h"
+#include "tttmainwindow.h"
+
+Realoadgame::Realoadgame(QWidget *parent,QString z) :
+    QDialog(parent),
+    ui(new Ui::Realoadgame)
+{
+    ui->setupUi(this);
+    if(z=="x")
+    {
+        ui->label->setText("PRZEGRAŁEŚ");
+        ui->label_2->setText("")
+    }
+            
+}
+
+Realoadgame::~Realoadgame()
+{
+    delete ui;
+}
+
+void Realoadgame::on_pushButton_clicked()
+{
+    TTTmainWindow t;
+    t.show();
+}

@@ -1,26 +1,12 @@
-#include "mainwindow.h"
-#include "start.h"
+#include "tttmainwindow.h"
 #include <QApplication>
-#include "rules.h"
-
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    TTTmainWindow t;
+    t.show();
 
-    start s;
-    s.setModal(true);
-    s.exec();
-
-
-    /*rules r;
-     r.w[0].Plansza();
-     r.w[0].show();*/
-
-   /*MainWindow m;
-    m.Plansza();
-    m.show();
-*/
-return a.exec();
+    return a.exec();
 }
