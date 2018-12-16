@@ -23,7 +23,7 @@ void Game::Plansza(QString wr_ustawione, QString kol_ustawione)
 
     for(int i = 0; i < wr*kol; i++) {
         buttons[i] = new QPushButton(this);
-        buttons[i]->setText("( ͡° ͜ʖ ͡°)");
+        buttons[i]->setText("");
         buttons[i]->setFixedSize(btnSize);
     }
 
@@ -56,7 +56,7 @@ void Game::Plansza(QString wr_ustawione, QString kol_ustawione)
 Game::~Game()
 {
     delete ui;
-    for (int i=0; i<(wr-1)*(kol-1); i++)
+    for (int i=0; i<wr*kol; i++)
     {
         delete [] buttons;
     }
@@ -93,7 +93,6 @@ int Game::random(int nMin, int nMax)
     srand((unsigned int)time((time_t *)NULL));
     return rand() % (nMax - nMin + 1 ) + nMin;
 }
-
 void Game::sprawdz(const QString z)
 {
     int zab=0;
@@ -103,42 +102,80 @@ void Game::sprawdz(const QString z)
         for(int j=0;j<kol;j++)
         {
             if(wr<10 && kol<10)
-            {
-                if(i<wr/2)
+            { //mniejsza plansza
+                if(i<=wr/2)
                 {
-                    if( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z) //pion
+                    if( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z) //pion gora
                         if(zab==0)
                         {
                             if(z=="o") koniec("o"); else koniec("x");
                             zab++;
                         }
+                    //skosy górna cześć
+                    if(j + (i+2) * kol-2>=(i+2)*kol && j + (i+2) * kol-2<(i+3)*kol) // skos 1 wariant
+                    {
+                        if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z)
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
+                    if(j + (i+2) * kol+2<(i+3)*kol && j + (i+2) * kol+2>=(i+2)*kol) // skos 2 wariant
+                    {
+                        if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z)
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
                 }
                 else if(i>=wr/2)
                 {
-                    if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) //pion
+                    if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) //pion dół
                         if(zab==0)
                         {
                             if(z=="o") koniec("o"); else koniec("x");
                             zab++;
                         }
+                    //skosy dolna część
+                    if(j + (i-2) * kol-2>=(i-2)*kol && j + (i-2) * kol-2<(i-3)*kol) //skos 1 wariant
+                    {
+                        if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
+                    if((j + (i-2) * kol)-2>=(i-2)*kol && (j + (i-2) * kol)-2<(i-3)*kol) //skos 2 wariant
+                    {
+                        if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
                 }
                 if(j<=kol/2)
-                    if(buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) //poziom +
+                    if(buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) //poziom lewy
                         if(zab==0)
                         {
                             if(z=="o") koniec("o"); else koniec("x");
                             zab++;
                         }
                         else if(j>kol/2)
-                            if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom -
+                            if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom prawy
                                 if(zab==0)
                                 {
                                     if(z=="o") koniec("o"); else koniec("x");
                                     zab++;
                                 }
-            }else
+            }else //wieksza plansza
             {
-                if(i<wr/2)
+                if(i<=wr/2)
                 {
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z &&
                             buttons[j + (i+3) * kol]->text()==z && buttons[j + (i+4) * kol]->text()==z) //pion gora
@@ -147,6 +184,27 @@ void Game::sprawdz(const QString z)
                             if(z=="o") koniec("o"); else koniec("x");
                             zab++;
                         }
+                    //skosy górna część
+                    if(j + (i+4) * kol-4>=(i+4)*kol && j + (i+4) * kol-4<(i+5)*kol) // skos 1 wariant
+                    {
+                        if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z &&
+                                buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z)
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
+                    if(j + (i+4) * kol+4<(i+5)*kol && j + (i+4) * kol+4>=(i+4)*kol) // skos 2 wariant
+                    {
+                        if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z &&
+                                buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z)
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
                 }
                 else if(i>=wr/2)
                 {
@@ -157,6 +215,27 @@ void Game::sprawdz(const QString z)
                             if(z=="o") koniec("o"); else koniec("x");
                             zab++;
                         }
+                    //skosy dolna cześć
+                    if(j + (i-4) * kol-4>=(i-4)*kol && j + (i-4) * kol-4<(i-5)*kol) //skos 1 wariant
+                    {
+                        if((buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z &&
+                            buttons[(j + (i-3) * kol)-3]->text()==z && buttons[(j + (i-4) * kol)-4]->text()==z))
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
+                    if((j + (i-4) * kol)-4>=(i-4)*kol && (j + (i-4) * kol)-4<(i-5)*kol) //skos 2 wariant
+                    {
+                        if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z &&
+                                buttons[(j + (i-3) * kol)-3]->text()==z && buttons[(j + (i-4) * kol)-4]->text()==z)
+                            if(zab==0)
+                            {
+                                if(z=="o") koniec("o"); else koniec("x");
+                                zab++;
+                            }
+                    }
                 }
                 if(j<=kol/2)
                 {
@@ -167,7 +246,8 @@ void Game::sprawdz(const QString z)
                             if(z=="o") koniec("o"); else koniec("x");
                             zab++;
                         }
-                } else if(j>kol/2)
+                }
+                else if(j>kol/2)
                     if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z &&
                             buttons[j + i * kol-3]->text()==z && buttons[j + i * kol-4]->text()==z)//poziom prawy
                         if(zab==0)
@@ -177,63 +257,6 @@ void Game::sprawdz(const QString z)
                         }
             }
         }
-    }
-    for(int i=(wr-1);i>0;i--)
-    {
-        for(int j=tmp;j<kol-1;j++)
-        {
-            if(wr>=10 && kol>=10)
-            {
-                if((buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)+1]->text()==z && buttons[(j + (i-2) * kol)+2]->text()==z &&
-                         buttons[(j + (i-3) * kol)+3]->text()==z && buttons[(j + (i-4) * kol)+4]->text()==z) || //skos 2 kierunek))
-                        (buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z &&
-                            buttons[(j + (i-3) * kol)-3]->text()==z && buttons[(j + (i-4) * kol)-4]->text()==z))
-                            if(zab==0)
-                            {
-                                if(z=="o") koniec("o"); else koniec("x");
-                                zab++;
-                            }//skos 1 kierunek)
-            }else
-            {
-                if((buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z) //skos 1 kierunek
-                        || (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z))
-                    if(zab==0)
-                    {
-                        if(z=="o") koniec("o"); else koniec("x");
-                        zab++;
-                    }
-            }
-        }
-        tmp++;
-    }
-    tmp = kol;
-    for(int i=0;i<wr;i++)
-    {
-        for(int j=0;j<tmp;j++)
-        {
-            if(wr>=10 && kol>=10)
-            {
-                if((buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z &&
-                    buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z) || //skos 1 kierunek
-                        (buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z &&
-                         buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z)) //skos 2 kierunek
-                    if(zab==0)
-                    {
-                        if(z=="o") koniec("o"); else koniec("x");
-                        zab++;
-                    }
-            }else
-            {
-                if((buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z) //skos1 maly
-                        || (buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z)) //skos2 maly
-                    if(zab==0)
-                    {
-                        if(z=="o") koniec("o"); else koniec("x");
-                        zab++;
-                    }
-            }
-        }
-        tmp--;
     }
 }
 
