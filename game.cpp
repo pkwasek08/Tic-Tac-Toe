@@ -3,7 +3,13 @@
 #include <QPixmap>
 #include <QtWidgets>
 #include "resultwindow.h"
+#include <cstdlib>
+#include <ctime>
+#include "ai.h"
+
 using namespace std;
+
+AI ai;
 
 Game::Game(QWidget *parent) :
     QDialog(parent),
@@ -11,12 +17,15 @@ Game::Game(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
 }
 
-void Game::Plansza(QString wr_ustawione, QString kol_ustawione)
+void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza) //int tryb
 {
-    wr = wr_ustawione.split(" ")[0].toInt(); //zamienia string na int
-    kol =kol_ustawione.split(" ")[0].toInt();
+    wr = wr_ustawione;
+    kol =kol_ustawione;
+    gracz1=znak_1gracza;
+    gracz2=znak_2gracza;
     //wr = 10;
     //kol = 10;
     buttons=new QPushButton *[wr*kol];
@@ -36,22 +45,6 @@ void Game::Plansza(QString wr_ustawione, QString kol_ustawione)
         }
     }
     this->setLayout(btnLayout);
-
-    // 1 ruch komputera
-    if(wr/2>3 && kol/2>3)
-    {
-        w_r=random(3,wr-4);
-        k_r=random(3,kol-4);
-    }else
-    {
-        w_r=random(0,wr-1);
-        k_r=random(0,kol-1);
-    }
-    buttons[k_r + w_r * kol]->setText("x");
-    buttons[k_r + w_r * kol]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
-    buttons[k_r + w_r * kol]->setDisabled(1);
-    max_w=w_r;
-    max_k=k_r;
 }
 Game::~Game()
 {
@@ -67,7 +60,6 @@ Game::~Game()
 //pojawienie sie kołka + sprawdzenie
 void Game::Klik()
 {
-    //rules r;
     QObject *button = QObject::sender();
     for(int i=0;i<wr;i++)
     {
@@ -75,22 +67,21 @@ void Game::Klik()
         {
             if(button == buttons[j + i * kol])
             {
-                buttons[j + i * kol]->setText("o");
+                buttons[j + i * kol]->setText(gracz1);
                 buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
                 buttons[j + i * kol]->setDisabled(1);
-                sprawdz("o");
+                sprawdz(gracz1);
+              //  AI::choosebutton(buttons,kol,wr,gracz2);
+                ai.choosebutton(buttons,kol,wr,gracz2);
+                sprawdz(gracz2);
             }
         }
     }
 }
 
-void Game::AI()
-{
-
-}
 int Game::random(int nMin, int nMax)
 {
-    srand((unsigned int)time((time_t *)NULL));
+    srand(time(0));
     return rand() % (nMax - nMin + 1 ) + nMin;
 }
 void Game::sprawdz(const QString z)
@@ -108,7 +99,7 @@ void Game::sprawdz(const QString z)
                     if( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z) //pion gora
                         if(zab==0)
                         {
-                            if(z=="o") koniec("o"); else koniec("x");
+                            if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                             zab++;
                         }
                     //skosy górna cześć
@@ -117,7 +108,7 @@ void Game::sprawdz(const QString z)
                         if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z)
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -126,7 +117,7 @@ void Game::sprawdz(const QString z)
                         if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z)
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -136,7 +127,7 @@ void Game::sprawdz(const QString z)
                     if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) //pion dół
                         if(zab==0)
                         {
-                            if(z=="o") koniec("o"); else koniec("x");
+                            if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                             zab++;
                         }
                     //skosy dolna część
@@ -145,7 +136,7 @@ void Game::sprawdz(const QString z)
                         if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -154,7 +145,7 @@ void Game::sprawdz(const QString z)
                         if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -163,14 +154,14 @@ void Game::sprawdz(const QString z)
                     if(buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) //poziom lewy
                         if(zab==0)
                         {
-                            if(z=="o") koniec("o"); else koniec("x");
+                            if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                             zab++;
                         }
                         else if(j>kol/2)
                             if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom prawy
                                 if(zab==0)
                                 {
-                                    if(z=="o") koniec("o"); else koniec("x");
+                                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                     zab++;
                                 }
             }else //wieksza plansza
@@ -181,7 +172,7 @@ void Game::sprawdz(const QString z)
                             buttons[j + (i+3) * kol]->text()==z && buttons[j + (i+4) * kol]->text()==z) //pion gora
                         if(zab==0)
                         {
-                            if(z=="o") koniec("o"); else koniec("x");
+                            if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                             zab++;
                         }
                     //skosy górna część
@@ -191,7 +182,7 @@ void Game::sprawdz(const QString z)
                                 buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z)
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -201,7 +192,7 @@ void Game::sprawdz(const QString z)
                                 buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z)
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -212,7 +203,7 @@ void Game::sprawdz(const QString z)
                             buttons[j + (i-3) * kol]->text()==z && buttons[j + (i-4) * kol]->text()==z)//pion dol
                         if(zab==0)
                         {
-                            if(z=="o") koniec("o"); else koniec("x");
+                            if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                             zab++;
                         }
                     //skosy dolna cześć
@@ -222,7 +213,7 @@ void Game::sprawdz(const QString z)
                             buttons[(j + (i-3) * kol)-3]->text()==z && buttons[(j + (i-4) * kol)-4]->text()==z))
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -232,7 +223,7 @@ void Game::sprawdz(const QString z)
                                 buttons[(j + (i-3) * kol)-3]->text()==z && buttons[(j + (i-4) * kol)-4]->text()==z)
                             if(zab==0)
                             {
-                                if(z=="o") koniec("o"); else koniec("x");
+                                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                                 zab++;
                             }
                     }
@@ -243,7 +234,7 @@ void Game::sprawdz(const QString z)
                         buttons[j + i * kol+3]->text()==z && buttons[j + i * kol+4]->text()==z))//poziom lewy
                         if(zab==0)
                         {
-                            if(z=="o") koniec("o"); else koniec("x");
+                            if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                             zab++;
                         }
                 }
@@ -252,7 +243,7 @@ void Game::sprawdz(const QString z)
                             buttons[j + i * kol-3]->text()==z && buttons[j + i * kol-4]->text()==z)//poziom prawy
                         if(zab==0)
                         {
-                            if(z=="o") koniec("o"); else koniec("x");
+                            if(z==gracz1) koniec(gracz1); else koniec(gracz2);
                             zab++;
                         }
             }
@@ -274,3 +265,4 @@ void Game::koniec(QString z)
         close();
     }
 }
+
