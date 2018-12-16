@@ -10,7 +10,6 @@ Game::Game(QWidget *parent) :
     ui(new Ui::Game)
 {
     ui->setupUi(this);
-
 }
 
 void Game::Plansza(QString wr_ustawione, QString kol_ustawione)
