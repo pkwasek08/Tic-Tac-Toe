@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
     game.cpp \
     tttmainwindow.cpp \
-    resultwindow.cpp
+    resultwindow.cpp \
+    ai.cpp
 
 HEADERS += \
     game.h \
     tttmainwindow.h \
-    resultwindow.h
+    resultwindow.h \
+    ai.h
 
 FORMS += \
     game.ui \

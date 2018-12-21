@@ -16,8 +16,8 @@ void ResultWindow::wybor(QString z)
 {
     if(z=="o")
     {
-        ui->lose->setText("WYGRAŁEŚ");
-    }else {ui->lose->setText("PRZEGRAŁEŚ");}
+        ui->lose->setText("WYGRAŁO KÓŁKO");
+    }else {ui->lose->setText("WYGRAŁ KRZYŻYK");}
 
     exec();
 }

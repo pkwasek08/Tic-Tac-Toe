@@ -14,7 +14,9 @@ class TTTmainWindow : public QMainWindow
 public:
     explicit TTTmainWindow(QWidget *parent = nullptr);
     ~TTTmainWindow();
-    QString wiersze,kolumny;
+    QString znak1="o",znak2="x";
+    int wiersze,kolumny;
+    int tryb{};
 private slots:
 
         void on_Zakoncz_clicked();
@@ -24,6 +26,10 @@ private slots:
         void on_buttonBox_accepted();
 
         void on_buttonBox_rejected();
+
+        void on_Znak_activated(const QString &arg1);
+
+        void on_Tryb_activated(const QString &arg1);
 
 private:
     Ui::TTTmainWindow *ui;

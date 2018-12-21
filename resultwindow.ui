@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
+    <width>442</width>
     <height>240</height>
    </rect>
   </property>
@@ -16,7 +16,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>130</x>
      <y>100</y>
      <width>241</width>
      <height>61</height>
@@ -34,9 +34,9 @@
   <widget class="QLabel" name="lose">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>50</x>
      <y>0</y>
-     <width>271</width>
+     <width>391</width>
      <height>101</height>
     </rect>
    </property>
@@ -46,13 +46,13 @@
     </font>
    </property>
    <property name="text">
-    <string>PRZEGRAŁEŚ</string>
+    <string>WYGRAŁ KRZYŻYK</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>110</x>
      <y>190</y>
      <width>93</width>
      <height>28</height>
@@ -73,7 +73,7 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>230</x>
      <y>190</y>
      <width>93</width>
      <height>28</height>

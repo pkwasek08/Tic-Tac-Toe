@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#pragma GCC diagnostic ignored "-Wdangling-else"
 #include <QDialog>
 #include <QMainWindow>
 #include "tttmainwindow.h"
@@ -23,10 +24,10 @@ public:
     ~Game();
     void sprawdz(QString z="");
     void koniec(QString z="");
-    void Plansza(QString wr_ustawione, QString kol_ustawione);
-    void AI();
+    void Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry); //int tryb
+    int gracz{};
     int random(int nMin, int nMax);
-
+    int tryb{};
     QPushButton **buttons;
     const QSize btnSize = QSize(60, 60);
     QObject* button = QObject::sender();
@@ -34,14 +35,12 @@ public:
     QVBoxLayout *view=new QVBoxLayout();
     QWidget w;
     int tmp_restart{};
-    int tmp;
+    int tmp,tmp2{};
     int wr{},kol{};
     int w_r{},k_r{};
+    QString gracz1,gracz2;
 
 private:
-
-    int max_w{};
-    int max_k{};
 
 private slots:
     void Klik(); //ruch gracza
