@@ -26,12 +26,12 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     if(tryb_gry==1) tryb=2;
     else tryb=1;
 
-    wr = wr_ustawione;
-    kol =kol_ustawione;
+   // wr = wr_ustawione;
+   // kol =kol_ustawione;
     gracz1=znak_1gracza;
     gracz2=znak_2gracza;
-    //wr = 10;
-    //kol = 10;
+    wr = 10;
+    kol = 10;
     buttons=new QPushButton *[wr*kol];
 
     for(int i = 0; i < wr*kol; i++) {
@@ -77,9 +77,6 @@ void Game::Klik()
                     buttons[j + i * kol]->setDisabled(1);
                     sprawdz(gracz1);
                     gracz++;
-                    //  AI::choosebutton(buttons,kol,wr,gracz2);
-                    // ai.choosebutton(buttons,kol,wr,gracz2);
-                    // sprawdz(gracz2);
                 }
                 else if(gracz==1 && tryb==1)
                 {
@@ -97,6 +94,7 @@ void Game::Klik()
                     buttons[j + i * kol]->setDisabled(1);
                     sprawdz(gracz1);
                     //  AI::choosebutton(buttons,kol,wr,gracz2);
+                   // ai.direction(buttons,kol,wr,gracz2)
                     ai.choosebutton(buttons,kol,wr,gracz2);
                     sprawdz(gracz2);
                 }
@@ -285,6 +283,8 @@ void Game::koniec(QString z)
     if(res.wynik==1)
     {
         tmp_restart=1;
+        ai.tmp=0;
+
         close();
     }
     else {

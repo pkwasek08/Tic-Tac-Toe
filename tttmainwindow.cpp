@@ -35,7 +35,7 @@ void TTTmainWindow::on_buttonBox_accepted()
 {
     wiersze = ui->lineEdit->text().split(" ")[0].toInt();
     kolumny = ui->lineEdit_2->text().split(" ")[0].toInt();
-    if(wiersze<3 || wiersze >=20 || kolumny<3 || kolumny >=20)
+   /* if(wiersze<3 || wiersze >=20 || kolumny<3 || kolumny >=20)
     {
         show();
         QMessageBox msgBox;
@@ -49,7 +49,7 @@ void TTTmainWindow::on_buttonBox_accepted()
            // ui->Znak->setCurrentIndex(0);
         }
     }else
-    {
+    {*/
         hide();
         Game g;
         g.Plansza(wiersze,kolumny,znak1,znak2,tryb);
@@ -63,7 +63,7 @@ void TTTmainWindow::on_buttonBox_accepted()
             ui->Tryb->setCurrentIndex(0);
             show();
         }
-    }
+    //}
 }
 
 void TTTmainWindow::on_buttonBox_rejected()
