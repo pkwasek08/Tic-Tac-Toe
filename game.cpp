@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "ai.h"
+#include <QRandomGenerator>
+#include <qglobal.h>
 
 using namespace std;
 
@@ -106,8 +108,10 @@ void Game::Klik()
 
 int Game::random(int nMin, int nMax)
 {
-    srand(time(0));
-    return rand() % (nMax - nMin + 1 ) + nMin;
+    //  srand(time(0));
+    qsrand(qrand());
+    //  return bounded(nMin,nMax);
+    return qrand() % (nMax - nMin + 1 ) + nMin;
 }
 void Game::sprawdz(const QString z)
 {

@@ -38,7 +38,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString z
         do
         {
             w_ai=random(w_r-1,w_r+1);
-           // w_ai=w_r;
+            // w_ai=w_r;
             k_ai=random(k_r-1,k_r+1);
             //k_ai=k_r;
         }
@@ -51,7 +51,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString z
     else
     {
         dir=0;
-        if(block(buttons,kol,wr,znak)==0)
+        if(block(buttons,kol,wr,"o")==0)
         {
             dir=direction(buttons,kol,wr,znak);
             if(dir==1)
@@ -74,9 +74,9 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString z
             {
                 do
                 {
-                    w_ai=random(w_r-1,w_r+1);
-                    //w_ai=w_r;
-                    k_ai=random(k_r-1,k_r+1);
+                    w_ai=random(w_ai-1,w_ai+1);
+                    // w_ai=w_r;
+                    k_ai=random(k_ai-1,k_ai+1);
                     // k_ai=k_r;
                 }
                 while(buttons[w_ai*kol+k_ai]->text()=="o" || buttons[w_ai*kol+k_ai]->text()=="x"); //w_ai<0 || k_ai<0 || w_ai>wr || k_ai>kol ||
@@ -101,6 +101,7 @@ int AI::random(int nMin, int nMax)
 
 int AI::direction(QPushButton **but,const int kol,const int wr,QString znak)
 {  
+    if(blokada==2) blokada=0;
     temp_wier=0;
     temp_kolumn=0;
     if(but[w_ai*kol+k_ai]->text()=="x" && but[w_ai*kol+k_ai-1]->text()=="x") //poziom lewy
@@ -205,7 +206,7 @@ int AI::direction(QPushButton **but,const int kol,const int wr,QString znak)
         }
         else if(but[(w_ai+temp_wier)*kol+k_ai]->text()=="") return 4;
     }*/
-    else return 7;
+    else return 0;
 }
 
 void AI::markButtons(QPushButton **buttons,const int kol,const int wr,int i,int j,QString znak)
@@ -213,109 +214,58 @@ void AI::markButtons(QPushButton **buttons,const int kol,const int wr,int i,int 
     buttons[(w_ai+i)*kol+k_ai+j]->setText(znak);
     buttons[(w_ai+i)*kol+k_ai+j]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
     buttons[(w_ai+i)*kol+k_ai+j]->setDisabled(1);
+    w_ai=w_ai+i;
+    k_ai=k_ai+j;
 }
 
 void AI::markButtons2(QPushButton **buttons,const int kol,const int wr,int i,int j,QString znak)
 {
-    if(buttons[(wr+i)*kol+j]->text()=="")
+    if(buttons[i*kol+j]->text()=="")
     {
-    buttons[i*kol+j]->setText(znak);
-    buttons[i*kol+j]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
-    buttons[i*kol+j]->setDisabled(1);
-}
+        buttons[i*kol+j]->setText(znak);
+        buttons[i*kol+j]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
+        buttons[i*kol+j]->setDisabled(1);
+    }
 }
 
 int AI::block(QPushButton **buttons, const int kol, const int wr, QString z)
 {
-   /* int zab=0;
+    int t=0;
+    z="o";
+    //int zab=0;
     for(int i=0;i<wr;i++)
     {
-        tmp=0;
         for(int j=0;j<kol;j++)
         {
             if(i<=wr/2)
             {
                 if( buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z) //pion gora
-                    if(zab==0)
+                    if(buttons[j + (i+3) * kol]->text()=="")
                     {
-                        if(buttons[j + (i+3) * kol]->text()=="")
-                        {
-                            markButtons2(buttons,kol,wr,i+4,j,z);
-                            return 1;
-                        }
-                        else if(i-2>=0 && buttons[j + (i-1) * kol]->text()=="")
-                        {
-                            markButtons2(buttons,kol,wr,i-2,j,z);
-                            return 1;
-                        }
-
-
+                        markButtons2(buttons,kol,wr,i+3,j,"x");
+                        return 1;
                     }
-                //skosy górna cześć
-                if(j + (i+2) * kol-2>=(i+2)*kol && j + (i+2) * kol-2<(i+3)*kol) // skos 1 wariant
-                {
-                    if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z)
-                        if(zab==0)
-                        {
-
-                        }
-                }
-                if(j + (i+2) * kol+2<(i+3)*kol && j + (i+2) * kol+2>=(i+2)*kol) // skos 2 wariant
-                {
-                    if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z)
-                        if(zab==0)
-                        {
-
-                        }
-                }
+                    else if(i-1>=1 && buttons[j + (i-1) * kol]->text()=="")
+                    {
+                        markButtons2(buttons,kol,wr,i-1,j,"x");
+                        return 1;
+                    }
             }
             else if(i>=wr/2)
             {
                 if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) //pion dół
-                    if(zab==0)
+                    if(buttons[j + (i-3) * kol]->text()=="")
                     {
-                        if(buttons[j + (i-3) * kol]->text()=="")
-                        {
-                            markButtons2(buttons,kol,wr,i-4,j,z);
-                            return 1;
-                        }
-                        else if(i+2<=wr && buttons[j + (i+1) * kol]->text()=="")
-                        {
-                            markButtons2(buttons,kol,wr,i+2,j,z);
-                            return 1;
-                        }
+                        markButtons2(buttons,kol,wr,i-3,j,"x");
+                        return 1;
                     }
-                //skosy dolna część
-                if(j + (i-2) * kol-2>=(i-2)*kol && j + (i-2) * kol-2<(i-3)*kol) //skos 1 wariant
-                {
-                    if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
-                        if(zab==0)
-                        {
-
-                        }
-                }
-                if((j + (i-2) * kol)-2>=(i-2)*kol && (j + (i-2) * kol)-2<(i-3)*kol) //skos 2 wariant
-                {
-                    if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
-                        if(zab==0)
-                        {
-
-                        }
-                }
+                    else if(i+1<=wr && buttons[j + (i+1) * kol]->text()=="")
+                    {
+                        markButtons2(buttons,kol,wr,i+1,j,"x");
+                        return 1;
+                    }
             }
-            if(j<=kol/2)
-                if(buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) //poziom lewy
-                    if(zab==0)
-                    {
-
-                    }
-                    else if(j>kol/2)
-                        if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom prawy
-                            if(zab==0)
-                            {
-
-                            }
         }
-    }*/
+    }
     return 0;
 }
