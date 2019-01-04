@@ -29,71 +29,52 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="menu">
      <widget class="QPushButton" name="Start">
       <property name="geometry">
        <rect>
-        <x>130</x>
+        <x>100</x>
         <y>190</y>
-        <width>211</width>
-        <height>51</height>
+        <width>271</width>
+        <height>91</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Viner Hand ITC</family>
-        <pointsize>16</pointsize>
+        <pointsize>28</pointsize>
        </font>
       </property>
       <property name="text">
        <string>Start</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="Ustaw">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>270</y>
-        <width>211</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Viner Hand ITC</family>
-        <pointsize>16</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Ustaw</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="Zakoncz">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>350</y>
-        <width>211</width>
-        <height>51</height>
+        <x>100</x>
+        <y>300</y>
+        <width>271</width>
+        <height>91</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Viner Hand ITC</family>
-        <pointsize>16</pointsize>
+        <pointsize>28</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>Zakończ</string>
+       <string>Close</string>
       </property>
      </widget>
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>60</y>
+        <x>40</x>
+        <y>50</y>
         <width>471</width>
         <height>91</height>
        </rect>
@@ -101,11 +82,12 @@
       <property name="font">
        <font>
         <family>Viner Hand ITC</family>
-        <pointsize>36</pointsize>
+        <pointsize>48</pointsize>
+        <italic>false</italic>
        </font>
       </property>
       <property name="text">
-       <string>kółko i krzyżyk</string>
+       <string>Tic Tac Toe</string>
       </property>
      </widget>
     </widget>

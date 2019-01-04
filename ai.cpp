@@ -51,6 +51,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString z
     else
     {
         dir=0;
+        //funckja sprawdzająca czy jest jakiś ruch który wygrywa
         if(block(buttons,kol,wr,"o")==0)
         {
             dir=direction(buttons,kol,wr,znak);
@@ -86,10 +87,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString z
             }
         }
     }
-
-
 }
-
 
 int AI::random(int nMin, int nMax)
 {
@@ -232,7 +230,7 @@ int AI::block(QPushButton **buttons, const int kol, const int wr, QString z)
 {
     int t=0;
     z="o";
-    //int zab=0;
+    int zab=0;
     for(int i=0;i<wr;i++)
     {
         for(int j=0;j<kol;j++)
@@ -250,6 +248,24 @@ int AI::block(QPushButton **buttons, const int kol, const int wr, QString z)
                         markButtons2(buttons,kol,wr,i-1,j,"x");
                         return 1;
                     }
+                if(j + (i+2) * kol-2>=(i+2)*kol && j + (i+2) * kol-2<(i+3)*kol) // skos 1 wariant
+                {
+                    if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z)
+                        if(buttons[j + (i+3) * kol-3]->text()=="")
+                        {
+                            markButtons2(buttons,kol,wr,i+3,j-3,"x");
+                            return 1;
+                        }
+                }
+                if(j + (i+2) * kol+2<(i+3)*kol && j + (i+2) * kol+2>=(i+2)*kol) // skos 2 wariant
+                {
+                    if(buttons[j + i * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z)
+                        if(buttons[j + (i+3) * kol+3]->text()=="")
+                        {
+                            markButtons2(buttons,kol,wr,i+3,j+3,"x");
+                            return 1;
+                        }
+                }
             }
             else if(i>=wr/2)
             {
@@ -259,9 +275,56 @@ int AI::block(QPushButton **buttons, const int kol, const int wr, QString z)
                         markButtons2(buttons,kol,wr,i-3,j,"x");
                         return 1;
                     }
-                    else if(i+1<=wr && buttons[j + (i+1) * kol]->text()=="")
+                    else if(i+1<wr-1 && buttons[j + (i+1) * kol]->text()=="")
                     {
                         markButtons2(buttons,kol,wr,i+1,j,"x");
+                        return 1;
+                    }
+                //do poprawy
+                if(j + (i-2) * kol-2>=(i-2)*kol && j + (i-2) * kol-2<(i-3)*kol) //skos 1 wariant
+                {
+                    if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
+                        if(buttons[j + (i-3) * kol-3]->text()=="")
+                        {
+                            markButtons2(buttons,kol,wr,i-3,j-3,"x");
+                            return 1;
+                        }
+                }
+                if((j + (i-2) * kol)-2>=(i-2)*kol && (j + (i-2) * kol)-2<(i-3)*kol) //skos 2 wariant
+                {
+                    if(buttons[j + i * kol]->text()==z && buttons[(j + (i-1) * kol)-1]->text()==z && buttons[(j + (i-2) * kol)-2]->text()==z)
+                        if(buttons[j + (i-3) * kol-3]->text()=="")
+                        {
+                            markButtons2(buttons,kol,wr,i-3,j-3,"x");
+                            return 1;
+                        }
+                }
+            }
+            if(j<=kol/2)
+            {
+                if(buttons[j + i * kol]->text()==z && buttons[j + i * kol+1]->text()==z && buttons[j + i * kol+2]->text()==z) //poziom lewy
+                    if(buttons[j + i * kol+3]->text()=="")
+                    {
+                        markButtons2(buttons,kol,wr,i,j+3,"x");
+                        return 1;
+                    }
+                    else if(j-1>=1 && buttons[j + i * kol-1]->text()=="")
+                    {
+                        markButtons2(buttons,kol,wr,i,j-1,"x");
+                        return 1;
+                    }
+            }
+            else if(j>kol/2)
+            {
+                if(buttons[j + i * kol]->text()==z && buttons[j + i * kol-1]->text()==z && buttons[j + i * kol-2]->text()==z) //poziom prawy
+                    if(buttons[j + i * kol-3]->text()=="")
+                    {
+                        markButtons2(buttons,kol,wr,i,j-3,"x");
+                        return 1;
+                    }
+                    else if(j+1<kol-1 && buttons[j + i * kol+1]->text()=="")
+                    {
+                        markButtons2(buttons,kol,wr,i,j+1,"x");
                         return 1;
                     }
             }
