@@ -60,6 +60,7 @@ Game::~Game()
         delete [] buttons;
     }
     // delete [] buttons;
+   // delete view;
 }
 
 //pojawienie sie kołka + sprawdzenie
@@ -109,10 +110,12 @@ void Game::Klik()
 int Game::random(int nMin, int nMax)
 {
     //  srand(time(0));
-    qsrand(qrand());
+    //qsrand(qrand());
+    qsrand(static_cast<quint64>(QTime::currentTime().msecsSinceStartOfDay()));
     //  return bounded(nMin,nMax);
     return qrand() % (nMax - nMin + 1 ) + nMin;
 }
+//sprawdza czy ktoś wygrał
 void Game::sprawdz(const QString z)
 {
     int zab=0;
