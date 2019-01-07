@@ -55,12 +55,12 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
 Game::~Game()
 {
     delete ui;
-    for (int i=0; i<wr*kol; i++)
-    {
+    ///for (int i=0; i<wr*kol; i++)
+   // {
         delete [] buttons;
-    }
+    //}
     // delete [] buttons;
-   // delete view;
+    delete view;
 }
 
 //pojawienie sie kołka + sprawdzenie
