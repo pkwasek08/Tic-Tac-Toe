@@ -40,6 +40,7 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
         buttons[i] = new QPushButton(this);
         buttons[i]->setText("");
         buttons[i]->setFixedSize(btnSize);
+        buttons[i]->setAutoDefault(0);
     }
 
     QGridLayout *btnLayout = new QGridLayout(this);

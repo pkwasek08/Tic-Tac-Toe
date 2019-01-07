@@ -95,7 +95,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString z
                 }
                 else if(dir==7)
                 {
-                    /* do
+                    do
                     {
                         QTime time = QTime::currentTime();
                         qsrand(static_cast<uint>(time.msec()));
@@ -115,7 +115,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString z
                     //direction(buttons,kol,wr,znak);
                     markButtons(buttons,kol,wr,0,0,znak);
                     blokada=0;
-                   // tmp=1;*/
+                    // tmp=1;
                 }
                 else if(dir==8)
                 {
@@ -155,7 +155,7 @@ int AI::direction(QPushButton **but,const int kol,const int wr,QString znak)
     if(blokada==2) blokada=0;
     temp_wier=0;
     temp_kolumn=0;
-    if(but[w_ai-1>=0 && w_ai+1<=wr && k_ai-1>=0 && k_ai+1<=kol && (w_ai-1)*kol+k_ai-1]->text()!="" && but[w_ai*kol+k_ai-1]->text()!="" && but[(w_ai-1)*kol+k_ai]->text()!="" && but[(w_ai+1)*kol+k_ai]->text()!="" &&
+    if(w_ai-1>=0 && w_ai+1<=wr && k_ai-1>=0 && k_ai+1<=kol && but[(w_ai-1)*kol+k_ai-1]->text()!="" && but[w_ai*kol+k_ai-1]->text()!="" && but[(w_ai-1)*kol+k_ai]->text()!="" && but[(w_ai+1)*kol+k_ai]->text()!="" &&
             but[(w_ai-1)*kol+k_ai+1]->text()!="" && but[(w_ai+1)*kol+k_ai-1]->text()!="" && but[(w_ai+1)*kol+k_ai+1]->text()!="" && but[w_ai*kol+k_ai+1]->text()!="")
     {
         return 8;
@@ -163,8 +163,7 @@ int AI::direction(QPushButton **but,const int kol,const int wr,QString znak)
     else if(k_ai-1>=0 && but[w_ai*kol+k_ai]->text()=="x" && but[w_ai*kol+k_ai-1]->text()=="x") //poziom lewy
     {
         while(but[w_ai*kol+k_ai+temp_kolumn]->text()=="x")
-            temp_kolumn--;
-        //if(but[w_ai*kol+k_ai+temp_wier-1]->text()=="o" && but[w_ai*kol+k_ai+1]->text()=="o") return 7;
+        { temp_kolumn--; }
         if(but[w_ai*kol+k_ai+temp_kolumn]->text()=="o")
         {
             temp_kolumn=1;
@@ -313,8 +312,12 @@ int AI::direction(QPushButton **but,const int kol,const int wr,QString znak)
             else if(k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn-1))*kol && but[(w_ai+temp_wier)*kol+k_ai]->text()=="") return 6;
         }
     }
+    if(w_ai-1>=0 && w_ai+1<=wr && k_ai-1>=0 && k_ai+1<=kol && (but[(w_ai-1)*kol+k_ai-1]->text()=="" || but[w_ai*kol+k_ai-1]->text()=="" || but[(w_ai-1)*kol+k_ai]->text()=="" || but[(w_ai+1)*kol+k_ai]->text()=="" ||
+                                                               but[(w_ai-1)*kol+k_ai+1]->text()=="" || but[(w_ai+1)*kol+k_ai-1]->text()=="" || but[(w_ai+1)*kol+k_ai+1]->text()=="" || but[w_ai*kol+k_ai+1]->text()==""))
+    {
+        return 7;
+    }
     return 8;
-
 }
 
 int AI::markButtons(QPushButton **buttons,const int kol,const int wr,int i,int j,QString znak)
@@ -393,7 +396,7 @@ int AI::block(QPushButton **buttons, const int kol, const int wr, QString z)
             else if(i>=wr/2)
             {
                 if(buttons[j + i * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z) //pion dół
-                    if(buttons[j + (i-3) * kol]->text()=="")
+                    if(i-3>=0 && buttons[j + (i-3) * kol]->text()=="")
                     {
                         markButtons2(buttons,kol,wr,i-3,j,"x");
                         return 1;
