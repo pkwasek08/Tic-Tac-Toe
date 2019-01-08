@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.8.0, 2019-01-07T23:16:44. -->
+<!-- Written by QtCreator 4.8.0, 2019-01-08T09:51:32. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -296,8 +296,8 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">tic-tac-toe</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">tic-tac-toe2</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/kwasi/Desktop/tic tac toe 2.0/Tic-Tac-Toe-b9f4915c3bd6a77102673447f11bf8b17ec3f30a/Tic-Tac-Toe-b9f4915c3bd6a77102673447f11bf8b17ec3f30a/tic-tac-toe.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/kwasi/Desktop/TTT/tic-tac-toe.pro</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">tic-tac-toe.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>

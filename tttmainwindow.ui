@@ -17,7 +17,7 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>-10</x>
       <y>0</y>
       <width>481</width>
       <height>461</height>
@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="menu">
      <widget class="QPushButton" name="Start">
@@ -146,7 +146,7 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>60</x>
+        <x>70</x>
         <y>50</y>
         <width>361</width>
         <height>57</height>
@@ -163,28 +163,6 @@
       </property>
       <property name="text">
        <string>ZACZYNAMY!</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lineEdit">
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>150</y>
-        <width>41</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>41</width>
-        <height>31</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Viner Hand ITC</family>
-        <pointsize>16</pointsize>
-       </font>
       </property>
      </widget>
      <widget class="QComboBox" name="Znak">
@@ -247,7 +225,7 @@
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>360</x>
+        <x>370</x>
         <y>160</y>
         <width>31</width>
         <height>20</height>
@@ -301,20 +279,46 @@
        <string>Podaj wielkość planszy:</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QSpinBox" name="spinBox">
       <property name="geometry">
        <rect>
-        <x>400</x>
-        <y>150</y>
-        <width>41</width>
+        <x>310</x>
+        <y>154</y>
+        <width>51</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Viner Hand ITC</family>
-        <pointsize>16</pointsize>
+        <pointsize>14</pointsize>
        </font>
+      </property>
+      <property name="minimum">
+       <number>3</number>
+      </property>
+      <property name="maximum">
+       <number>20</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBox_2">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>154</y>
+        <width>51</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="minimum">
+       <number>3</number>
+      </property>
+      <property name="maximum">
+       <number>20</number>
       </property>
      </widget>
     </widget>

@@ -3,11 +3,7 @@
 #include <QPixmap>
 #include <QtWidgets>
 #include "resultwindow.h"
-#include <cstdlib>
-#include <ctime>
 #include "ai.h"
-#include <QRandomGenerator>
-#include <qglobal.h>
 
 using namespace std;
 
@@ -24,16 +20,18 @@ Game::Game(QWidget *parent) :
 
 void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry) //int tryb
 {
+    //znak_1gracza - znak którym przy grze z AI posługuje się gracz
+    //znak_2gracza - znak którym posługuje się AI
     //tryb 1 gracz vs gracz, tryb 2 gracz vs AI
     if(tryb_gry==1) tryb=2;
     else tryb=1;
 
-   // wr = wr_ustawione;
-   // kol =kol_ustawione;
+    wr = wr_ustawione;
+    kol =kol_ustawione;
     gracz1=znak_1gracza;
     gracz2=znak_2gracza;
-    wr = 10;
-    kol = 10;
+    //wr = 10;
+    //kol = 10;
     buttons=new QPushButton *[wr*kol];
 
     for(int i = 0; i < wr*kol; i++) {
@@ -99,22 +97,13 @@ void Game::Klik()
                     sprawdz(gracz1);
                     //  AI::choosebutton(buttons,kol,wr,gracz2);
                    // ai.direction(buttons,kol,wr,gracz2)
-                    ai.choosebutton(buttons,kol,wr,gracz2);
+                    ai.choosebutton(buttons,kol,wr,gracz1,gracz2);
                     sprawdz(gracz2);
                 }
             }
 
         }
     }
-}
-
-int Game::random(int nMin, int nMax)
-{
-    //  srand(time(0));
-    //qsrand(qrand());
-    qsrand(static_cast<quint64>(QTime::currentTime().msecsSinceStartOfDay()));
-    //  return bounded(nMin,nMax);
-    return qrand() % (nMax - nMin + 1 ) + nMin;
 }
 //sprawdza czy ktoś wygrał
 void Game::sprawdz(const QString z)

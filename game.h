@@ -26,25 +26,22 @@ public:
     void koniec(QString z="");
     void Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry); //int tryb
     int gracz{};
-    int random(int nMin, int nMax);
     int tryb{};
     QPushButton **buttons;
     const QSize btnSize = QSize(60, 60);
     QObject* button = QObject::sender();
-     //auto gridLayout = new QGridLayout(&mainWindow);
     QVBoxLayout *view=new QVBoxLayout();
     QWidget w;
-    int tmp_restart{};
     int tmp,tmp2{};
     int wr{},kol{};
     int w_r{},k_r{};
     QString gracz1,gracz2;
+    int tmp_restart{};
 
 private:
 
 private slots:
     void Klik(); //ruch gracza
-
 
 private:
     Ui::Game *ui;
