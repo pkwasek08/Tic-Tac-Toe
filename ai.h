@@ -23,6 +23,7 @@ public:
     int block(QPushButton **buttons,const int kol,const int wr,QString znak,QString znak_ai);
     int win(QPushButton **buttons,const int kol,const int wr,QString znak);
     void markButtons2(QPushButton **buttons,const int kol,int i,int j,QString znak);
+    int specialCase(QPushButton **buttons, const int kol, const int wr, QString z ,QString znak_ai);
 private:
    int w_r{},k_r{};
     int w_ai{},k_ai{};
