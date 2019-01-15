@@ -54,17 +54,13 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString g
         {
             QTime time = QTime::currentTime();
             qsrand(static_cast<uint>(time.msec()));
-            if(w_ai==0) w_ai++;
-            if(k_ai==0) k_ai++;
-            if(w_ai==wr) w_ai--;
-            if(k_ai==kol) k_ai--;
             w_r=random(w_ai-1,w_ai+1);
             k_r=random(k_ai-1,k_ai+1);
         }
         while(buttons[w_r*kol+k_r]->text()=="o" || buttons[w_r*kol+k_r]->text()=="x");// || w_ai<0 || k_ai<0 || w_ai>wr || k_ai>kol );
         w_ai=w_r;
         k_ai=k_r;
-        markButtons(buttons,kol,0,0,znak_ai);
+        markButtons(buttons,kol,w_ai,k_ai,znak_ai);
         tmp++;
     }
     else
@@ -78,74 +74,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString g
                 {
                     if(specialCase(buttons,kol,wr,znak_ai,znak_ai)==0)
                     {
-                        dir=direction(buttons,kol,wr,gracz,znak_ai);
-                        if(dir==1)
-                        {
-                            markButtons(buttons,kol,0,temp_kolumn,znak_ai);
-                        }
-                        else if(dir==2)
-                        {
-                            markButtons(buttons,kol,0,temp_kolumn,znak_ai);
-                        }
-                        else if(dir==3)
-                        {
-                            markButtons(buttons,kol,temp_wier,0,znak_ai);
-                        }
-                        else if(dir==4)
-                        {
-                            markButtons(buttons,kol,temp_wier,0,znak_ai);
-                        }
-                        else if(dir==5)
-                        {
-                            markButtons(buttons,kol,temp_wier,temp_kolumn,znak_ai);
-                        }
-                        else if(dir==6)
-                        {
-                            markButtons(buttons,kol,temp_wier,temp_kolumn,znak_ai);
-                        }
-                        else if(dir==7)
-                        {
-                            do
-                            {
-                                QTime time = QTime::currentTime();
-                                qsrand(static_cast<uint>(time.msec()));
-                                if(w_ai==0) w_ai++;
-                                if(k_ai==0) k_ai++;
-                                if(w_ai==wr) w_ai--;
-                                if(k_ai==kol) k_ai--;
-                                w_r=random(w_ai-1,w_ai+1);
-                                k_r=random(k_ai-1,k_ai+1);
-                            }
-                            while(buttons[w_r*kol+k_r]->text()=="o" || buttons[w_r*kol+k_r]->text()=="x" || w_r<0
-                                  || k_r<0 || w_r>=wr || k_r>=kol);
-                            w_ai=w_r;
-                            k_ai=k_r;
-                            markButtons(buttons,kol,0,0,znak_ai);
-                            blokada=0;
-                            // tmp=1;
-                        }
-                        else if(dir==8)
-                        {
-                            do
-                            {
-                                if(wr/2>3 && kol/2>3)
-                                {
-                                    w_r=random(1,wr-1);
-                                    k_r=random(1,kol-1);
-                                }else
-                                {
-                                    w_r=random(0,wr-1);
-                                    k_r=random(0,kol-1);
-                                }
-                            }
-                            while(buttons[w_r*kol+k_r]->text()=="o" || buttons[w_r*kol+k_r]->text()=="x" || w_r<0
-                                  || k_r<0 || w_r>wr || k_r>kol);
-                            buttons[k_r + w_r * kol]->setText(znak_ai);
-                            buttons[k_r + w_r * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
-                            buttons[k_r + w_r * kol]->setDisabled(1);
-                            w_ai=w_r;
-                            k_ai=k_r;
-                        }
+                        direction(buttons,kol,wr,gracz,znak_ai);
                     }
                 }
             }
@@ -159,183 +88,90 @@ int AI::random(int nMin, int nMax)  //losuje
 }
 
 //wybiera najlepszy kierunek dla ai
-int AI::direction(QPushButton **but,const int kol,const int wr,QString gracz,QString znak_ai)
+int AI::direction(QPushButton **buttons,const int kol,const int wr,QString gracz,QString z)
 {  
-    if(blokada==2) blokada=0;
-    temp_wier=0;
-    temp_kolumn=0;
-    if(w_ai-1>=0 && w_ai+1<=wr && k_ai-1>=0 && k_ai+1<=kol && but[(w_ai-1)*kol+k_ai-1]->text()!="" && but[w_ai*kol+k_ai-1]->text()!="" && but[(w_ai-1)*kol+k_ai]->text()!="" && but[(w_ai+1)*kol+k_ai]->text()!="" &&
-            but[(w_ai-1)*kol+k_ai+1]->text()!="" && but[(w_ai+1)*kol+k_ai-1]->text()!="" && but[(w_ai+1)*kol+k_ai+1]->text()!="" && but[w_ai*kol+k_ai+1]->text()!="")
+    // if(blokada==2) blokada=0;
+    // temp_wier=0;
+    //  temp_kolumn=0;
+    for(int i=0;i<wr;i++)
     {
-        return 8;
-    }
-    else if(k_ai-1>=0 && but[w_ai*kol+k_ai]->text()==znak_ai && but[w_ai*kol+k_ai-1]->text()==znak_ai) //poziom lewy
-    {
-        while(but[w_ai*kol+k_ai+temp_kolumn]->text()==znak_ai)
-        { temp_kolumn--; }
-        if(but[w_ai*kol+k_ai+temp_kolumn]->text()==gracz)
+        for(int j=0;j<kol;j++)
         {
-            temp_kolumn=1;
-            blokada++;
-        }
-        if(blokada==2) return 7;
-        if(k_ai>(w_ai+1)*kol-(w_ai*kol+k_ai+temp_kolumn) &&  but[w_ai*kol+k_ai+temp_kolumn]->text()=="")
-        {
-            return 1;
-        }
-        else if(but[w_ai*kol+k_ai+temp_kolumn]->text()=="") return 2;
-    }
-    else if(k_ai+1<=kol && but[w_ai*kol+k_ai]->text()==znak_ai && but[w_ai*kol+k_ai+1]->text()==znak_ai) //poziom prawy
-    {
-        while(but[w_ai*kol+k_ai+temp_kolumn]->text()==znak_ai)
-            temp_kolumn++;
-        //if(but[w_ai*kol+k_ai+temp_wier+1]->text()=="o" && but[w_ai*kol+k_ai-1]->text()=="o") return 7;
-        if(but[w_ai*kol+k_ai+temp_kolumn]->text()==gracz)
-        {
-            temp_kolumn=-1;
-            blokada++;
-        }
-        if(blokada==2) return 7;
-        if(k_ai>(w_ai+1)*kol-(w_ai*kol+k_ai+temp_kolumn) &&  but[w_ai*kol+k_ai+temp_kolumn]->text()=="" )
-        {
-            return 1;
-        }
-        else if(but[w_ai*kol+k_ai+temp_kolumn]->text()=="") return 2;
-    }
-    else if(w_ai-1>=0 && but[w_ai*kol+k_ai]->text()==znak_ai && but[(w_ai-1)*kol+k_ai]->text()==znak_ai) //pion gora
-    {
-        while(but[(w_ai+temp_wier)*kol+k_ai]->text()==znak_ai)
-        { temp_wier--; }
-        if(but[(w_ai+temp_wier)*kol+k_ai]->text()==gracz)
-        {
-            temp_wier=1;
-            blokada++;
-        }
-        if(blokada==2) return 7;
-        if(w_ai>wr-(w_ai+temp_wier) &&  but[(w_ai+temp_wier)*kol+k_ai]->text()=="")
-        {
-            return 4;
-        }
-        else if(but[(w_ai+temp_wier)*kol+k_ai]->text()=="") return 3;
-    }
-    else if(w_ai+1<=wr && but[w_ai*kol+k_ai]->text()==znak_ai && but[(w_ai+1)*kol+k_ai]->text()==znak_ai) //pion dol
-    {
-        while(but[(w_ai+temp_wier)*kol+k_ai]->text()==znak_ai)
-        {temp_wier++; }
-        if(but[(w_ai+temp_wier)*kol+k_ai]->text()==gracz)
-        {
-            temp_wier=-1;
-            blokada++;
-        }
-        if(blokada==2) return 7;
-        if(w_ai>wr-(w_ai+temp_wier) &&  but[(w_ai+temp_wier)*kol+k_ai]->text()=="" )
-        {
-            return 3;
-        }
-        else if(but[(w_ai+temp_wier)*kol+k_ai]->text()=="") return 4;
-    }
-    else if(w_ai>=wr/2)
-    {
-        //skos 1 wariant
-        if(k_ai-1>=0 && but[w_ai*kol+k_ai]->text()==znak_ai && but[(w_ai-1)*kol+k_ai-1]->text()==znak_ai)
-        {
-            while(but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==znak_ai)
+            if(i+3<wr && buttons[j + (i) * kol]->text()=="" && buttons[j + (i+1) * kol]->text()==z && ((buttons[j + (i+2) * kol]->text()==z && buttons[j + (i+3) * kol]->text()==z) || buttons[j + (i+2) * kol]->text()==z))
             {
-                temp_wier--;
-                temp_kolumn--;
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
             }
-            if(w_ai+1<=wr && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==gracz)
+            if(i-3>=0 && buttons[j + (i) * kol]->text()=="" && buttons[j + (i-1) * kol]->text()==z && ((buttons[j + (i-2) * kol]->text()==z && buttons[j + (i-3) * kol]->text()==z) || buttons[j + (i-2) * kol]->text()==z))
             {
-                temp_wier=1;
-                temp_kolumn=1;
-                blokada++;
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
             }
-            if(blokada==2) return 7;
-            if(k_ai+1<=kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn-1))*kol && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="")
+            if(j+3<kol && buttons[j + (i) * kol]->text()=="" && buttons[j + (i) * kol+1]->text()==z && ((buttons[j + (i) * kol+2]->text()==z && buttons[j + (i) * kol+3]->text()==z) || buttons[j + (i) * kol+2]->text()==z))
             {
-                return 5;
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
             }
-            else if(k_ai+1<=kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn+1))*kol && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="") return 6;
-        } //skos 2 wariant
-        else if(w_ai+1<=wr && k_ai+1<=kol && k_ai-1>=0 && but[w_ai*kol+k_ai]->text()==znak_ai && but[(w_ai-1)*kol+k_ai+1]->text()==znak_ai)
-        {
-            while(but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==znak_ai)
+            if(j-3>=0 && buttons[j + (i) * kol]->text()=="" && buttons[j + (i) * kol-1]->text()==z && ((buttons[j + (i) * kol-2]->text()==z && buttons[j + (i) * kol-3]->text()==z) || buttons[j + (i) * kol-2]->text()==z))
             {
-                temp_wier--;
-                temp_kolumn++;
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
             }
-            if(but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==gracz)
+            if(j+3<kol && i+3<wr && buttons[j + (i) * kol]->text()=="" && buttons[j + (i+1) * kol+1]->text()==z && ((buttons[j + (i+2) * kol+2]->text()==z && buttons[j + (i+3) * kol+3]->text()==z) || buttons[j + (i+2) * kol+2]->text()==z))
             {
-                temp_wier=1;
-                temp_kolumn=-1;
-                blokada++;
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
             }
-            if(blokada==2) return 7;
-            if(k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn-1))*kol &&  but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="")
+            if(j-3>=0 && i-3>=0 && buttons[j + (i) * kol]->text()=="" && buttons[j + (i-1) * kol-1]->text()==z && ((buttons[j + (i-2) * kol-2]->text()==z && buttons[j + (i-3) * kol-3]->text()==z) || buttons[j + (i-2) * kol-2]->text()==z))
             {
-                return 5;
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
             }
-            else if(k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn+1))*kol && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="") return 6;
+            if(j-3>=0 && i+3<wr && buttons[j + (i) * kol]->text()=="" && buttons[j + (i+1) * kol-1]->text()==z && ((buttons[j + (i+2) * kol-2]->text()==z && buttons[j + (i+3) * kol-3]->text()==z) || buttons[j + (i+2) * kol-2]->text()==z))
+            {
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
+            }
+            if(j+3<kol && i-3>=0 && buttons[j + (i) * kol]->text()=="" && buttons[j + (i-1) * kol+1]->text()==z && ((buttons[j + (i-2) * kol+2]->text()==z && buttons[j + (i-3) * kol+3]->text()==z) || buttons[j + (i-2) * kol+2]->text()==z))
+            {
+                markButtons2(buttons,kol,i,j, z);
+                return 1;
+            }
         }
     }
-    else if(w_ai<=wr/2)
+    for(int i=0;i<wr;i++)
     {
-        if(w_ai-1>=0 && k_ai+1<=kol && k_ai-1>=0 && but[w_ai*kol+k_ai]->text()==znak_ai && but[(w_ai+1)*kol+k_ai+1]->text()==znak_ai) //skos 1 wariant
+        for(int j=0;j<kol;j++)
         {
-            while(but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==znak_ai)
+            if(j>1 && i>1 && i<wr-2 && j<kol-2 && buttons[j + (i) * kol]->text()==z)
             {
-                temp_wier++;
-                temp_kolumn++;
+                do
+                {
+                    QTime time = QTime::currentTime();
+                    qsrand(static_cast<uint>(time.msec()));
+
+                    w_r=random(i-1,i+1);
+                    k_r=random(j-1,j+1);
+                }
+                while(buttons[w_r*kol+k_r]->text()=="o" || buttons[w_r*kol+k_r]->text()=="x");
+                markButtons2(buttons,kol,w_r,k_r, z);
+                qDebug()<<"Losuje";
+                return 1;
             }
-            if(but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==gracz)
-            {
-                temp_wier=-1;
-                temp_kolumn=-1;
-                blokada++;
-            }
-            if(blokada==2) return 7;
-            if(k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn+1))*kol && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="")
-            {
-                return 5;
-            }
-            else if(k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn-1))*kol && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="") return 6;
-        }
-        else if(w_ai-1>=0 && k_ai+1<=kol && k_ai-1>=0 && but[w_ai*kol+k_ai]->text()==znak_ai && but[(w_ai+1)*kol+k_ai-1]->text()==znak_ai) //skos 2 wariant
-        {
-            while(but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==znak_ai)
-            {
-                temp_wier++;
-                temp_kolumn--;
-            }
-            if(but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()==gracz)
-            {
-                temp_wier=-1;
-                temp_kolumn=1;
-                blokada++;
-            }
-            if(blokada==2) return 7;
-            if(k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn+1))*kol && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="")
-            {
-                return 5;
-            }
-            else if(k_ai + (w_ai+temp_wier) * kol+temp_kolumn>=(w_ai+temp_wier)*kol && k_ai + (w_ai+temp_wier) * kol+temp_kolumn<(w_ai+(temp_kolumn-1))*kol && but[(w_ai+temp_wier)*kol+k_ai+temp_kolumn]->text()=="") return 6;
+
+
         }
     }
-    if(w_ai-1>=0 && w_ai+1<=wr && k_ai-1>=0 && k_ai+1<=kol && (but[(w_ai-1)*kol+k_ai-1]->text()=="" || but[w_ai*kol+k_ai-1]->text()=="" || but[(w_ai-1)*kol+k_ai]->text()=="" || but[(w_ai+1)*kol+k_ai]->text()=="" ||
-                                                               but[(w_ai-1)*kol+k_ai+1]->text()=="" || but[(w_ai+1)*kol+k_ai-1]->text()=="" || but[(w_ai+1)*kol+k_ai+1]->text()=="" || but[w_ai*kol+k_ai+1]->text()==""))
-    {
-        return 7;
-    }
-    return 8;
+
 }
 
 int AI::markButtons(QPushButton **buttons,const int kol,int i,int j,QString znak)
 {
-    if(buttons[(w_ai+i)*kol+k_ai+j]->text()=="")
+    if(buttons[(i)*kol+j]->text()=="")
     {
-        buttons[(w_ai+i)*kol+k_ai+j]->setText(znak);
-        buttons[(w_ai+i)*kol+k_ai+j]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
-        buttons[(w_ai+i)*kol+k_ai+j]->setDisabled(1);
+        buttons[(i)*kol+j]->setText(znak);
+        buttons[(i)*kol+j]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
+        buttons[(i)*kol+j]->setDisabled(1);
         w_ai=w_ai+i;
         k_ai=k_ai+j;
         return 1;
