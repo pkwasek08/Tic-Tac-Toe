@@ -24,11 +24,11 @@ public:
     ~Game();
     int sprawdz(QString z="");
     void koniec(QString z="");
-    void Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry); //int tryb
+    void Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry,int wiel_przyciskow); //int tryb
     int gracz{};
     int tryb{};
     QPushButton **buttons;
-    const QSize btnSize = QSize(40, 40);
+    //int wiel_przyciskow{};
     QObject* button = QObject::sender();
     QVBoxLayout *view=new QVBoxLayout();
     QWidget w;

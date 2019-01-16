@@ -1,7 +1,7 @@
-<?xml version='1.0'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Game</class>
- <widget name="Game" class="QDialog">
+ <widget class="QDialog" name="Game">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,8 +10,20 @@
     <height>240</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::WheelFocus</enum>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Kółko i krzyżyk</string>
+  </property>
+  <property name="toolTip">
+   <string notr="true"/>
+  </property>
+  <property name="statusTip">
+   <string notr="true"/>
   </property>
  </widget>
  <resources/>

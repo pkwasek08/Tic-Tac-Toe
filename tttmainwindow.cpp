@@ -4,6 +4,7 @@
 #include<iostream>
 #include<cstdlib>
 #include "game.h"
+#include <QDesktopWidget>
 
 
 TTTmainWindow::TTTmainWindow(QWidget *parent) :
@@ -12,6 +13,15 @@ TTTmainWindow::TTTmainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
+    QDesktopWidget dw;
+    x=dw.width();
+    y=dw.height()-110;
+    max_wr=y/30;
+    max_kol=x/30;
+    ui->spinBox_2->setMaximum(max_kol);
+     ui->spinBox->setMaximum(max_wr);
+
+
 }
 
 TTTmainWindow::~TTTmainWindow()
@@ -35,11 +45,13 @@ void TTTmainWindow::on_buttonBox_accepted()
 {
     wiersze = ui->spinBox->text().split(" ")[0].toInt();
     kolumny = ui->spinBox_2->text().split(" ")[0].toInt();
-
+    wiel_przyciskow=y/wiersze;
     hide();
     Game g;
-    g.Plansza(wiersze,kolumny,znak1,znak2,tryb);
+    g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow);
     g.exec();
+
+
 
     if(g.tmp_restart==1)
     {
@@ -86,4 +98,9 @@ void TTTmainWindow::on_Tryb_activated(const QString &arg1)
         ui->spinBox->setMinimum(10);
         ui->spinBox_2->setMinimum(10);
     }
+}
+
+void TTTmainWindow::on_spinBox_valueChanged(const QString &arg1)
+{
+
 }

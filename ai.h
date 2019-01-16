@@ -19,11 +19,12 @@ public:
     int tmp{};
     int random(int nMin, int nMax);
     int markButtons(QPushButton **buttons,const int kol,int i,int j,QString znak);
-    int direction(QPushButton **buttons,const int kol,const int wr,QString gracz,QString znak_ai);
+    int direction_2(QPushButton **buttons,const int kol,const int wr,QString gracz,QString znak_ai);
     int block(QPushButton **buttons,const int kol,const int wr,QString znak,QString znak_ai);
     int win(QPushButton **buttons,const int kol,const int wr,QString znak,QString z_ai);
     void markButtons2(QPushButton **buttons,const int kol,int i,int j,QString znak);
     int specialCase(QPushButton **buttons, const int kol, const int wr, QString z ,QString znak_ai);
+    int test(QPushButton **buttons, const int kol, const int wr);
 private:
    int w_r{},k_r{};
     int w_ai{},k_ai{};

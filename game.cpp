@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include "resultwindow.h"
 #include "ai.h"
+#include <QDesktopWidget>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ Game::Game(QWidget *parent) :
 
 }
 
-void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry) //int tryb
+void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry,int wiel_przyciskow) //int tryb
 {
     //znak_1gracza - znak którym przy grze z AI posługuje się gracz
     //znak_2gracza - znak którym posługuje się AI
@@ -30,6 +31,10 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     kol =kol_ustawione;
     gracz1=znak_1gracza;
     gracz2=znak_2gracza;
+
+    //ustawia wielkosc przyciskow
+     const QSize btnSize = QSize(wiel_przyciskow, wiel_przyciskow);
+
 
     buttons=new QPushButton *[wr*kol];
 
@@ -49,6 +54,9 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
         }
     }
     this->setLayout(btnLayout);
+
+
+
 }
 Game::~Game()
 {
