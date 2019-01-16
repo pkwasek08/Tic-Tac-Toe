@@ -22,13 +22,13 @@ class Game : public QDialog
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
-    void sprawdz(QString z="");
+    int sprawdz(QString z="");
     void koniec(QString z="");
     void Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry); //int tryb
     int gracz{};
     int tryb{};
     QPushButton **buttons;
-    const QSize btnSize = QSize(60, 60);
+    const QSize btnSize = QSize(40, 40);
     QObject* button = QObject::sender();
     QVBoxLayout *view=new QVBoxLayout();
     QWidget w;

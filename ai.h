@@ -21,7 +21,7 @@ public:
     int markButtons(QPushButton **buttons,const int kol,int i,int j,QString znak);
     int direction(QPushButton **buttons,const int kol,const int wr,QString gracz,QString znak_ai);
     int block(QPushButton **buttons,const int kol,const int wr,QString znak,QString znak_ai);
-    int win(QPushButton **buttons,const int kol,const int wr,QString znak);
+    int win(QPushButton **buttons,const int kol,const int wr,QString znak,QString z_ai);
     void markButtons2(QPushButton **buttons,const int kol,int i,int j,QString znak);
     int specialCase(QPushButton **buttons, const int kol, const int wr, QString z ,QString znak_ai);
 private:
