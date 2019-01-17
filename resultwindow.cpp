@@ -1,5 +1,9 @@
 #include "resultwindow.h"
 #include "ui_resultwindow.h"
+#include <QApplication>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QWidget>
 
 ResultWindow::ResultWindow(QWidget *parent) :
     QDialog(parent),
@@ -15,9 +19,13 @@ ResultWindow::~ResultWindow()
 void ResultWindow::wybor(QString z)
 {
     if(z=="o")
-    {
         ui->lose->setText("WYGRAŁO KÓŁKO");
-    }else {ui->lose->setText("WYGRAŁ KRZYŻYK");}
+    else if(z=="x")
+        ui->lose->setText("WYGRAŁ KRZYŻYK");
+    else ui->lose->setText("REMIS");
+
+    ui->lose->setAlignment(Qt::AlignCenter);
+    ui->label->setAlignment(Qt::AlignCenter);
 
     exec();
 }

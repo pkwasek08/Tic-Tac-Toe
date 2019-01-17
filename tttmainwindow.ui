@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>TTTmainWindow</class>
  <widget class="QMainWindow" name="TTTmainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Kółko i krzyżyk</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QStackedWidget" name="stackedWidget">
@@ -23,13 +26,19 @@
       <height>461</height>
      </rect>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>481</width>
+      <height>461</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>Viner Hand ITC</family>
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="menu">
      <widget class="QPushButton" name="Start">

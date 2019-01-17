@@ -33,7 +33,7 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     gracz2=znak_2gracza;
 
     //ustawia wielkosc przyciskow
-     const QSize btnSize = QSize(wiel_przyciskow, wiel_przyciskow);
+    const QSize btnSize = QSize(wiel_przyciskow, wiel_przyciskow);
 
 
     buttons=new QPushButton *[wr*kol];
@@ -54,9 +54,6 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
         }
     }
     this->setLayout(btnLayout);
-
-
-
 }
 Game::~Game()
 {
@@ -73,44 +70,44 @@ Game::~Game()
 void Game::Klik()
 {
     QObject *button = QObject::sender();
-    for(int i=0;i<wr;i++)
-    {
-        for(int j=0;j<kol;j++)
+        for(int i=0;i<wr;i++)
         {
-            if(button == buttons[j + i * kol])
+            for(int j=0;j<kol;j++)
             {
-                if(gracz==0 && tryb==1)
+                if(button == buttons[j + i * kol])
                 {
-                    buttons[j + i * kol]->setText(gracz1);
-                    buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
-                    buttons[j + i * kol]->setDisabled(1);
-                    sprawdz(gracz1);
-                    gracz++;
-                }
-                else if(gracz==1 && tryb==1)
-                {
+                    if(gracz==0 && tryb==1)
+                    {
+                        buttons[j + i * kol]->setText(gracz1);
+                        buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
+                        buttons[j + i * kol]->setDisabled(1);
+                        sprawdz(gracz1);
+                        gracz++;
+                    }
+                    else if(gracz==1 && tryb==1)
+                    {
 
-                    buttons[j + i * kol]->setText(gracz2);
-                    buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
-                    buttons[j + i * kol]->setDisabled(1);
-                    sprawdz(gracz2);
-                    gracz--;
+                        buttons[j + i * kol]->setText(gracz2);
+                        buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
+                        buttons[j + i * kol]->setDisabled(1);
+                        sprawdz(gracz2);
+                        gracz--;
+                    }
+                    if(tryb==2)
+                    {
+                        buttons[j + i * kol]->setText(gracz1);
+                        buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
+                        buttons[j + i * kol]->setDisabled(1);
+                        sprawdz(gracz1);
+                        //  AI::choosebutton(buttons,kol,wr,gracz2);
+                        // ai.direction(buttons,kol,wr,gracz2)
+                        ai.choosebutton(buttons,kol,wr,gracz1,gracz2);
+                        sprawdz(gracz2);
+                    }
                 }
-                if(tryb==2)
-                {
-                    buttons[j + i * kol]->setText(gracz1);
-                    buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
-                    buttons[j + i * kol]->setDisabled(1);
-                    sprawdz(gracz1);
-                    //  AI::choosebutton(buttons,kol,wr,gracz2);
-                    // ai.direction(buttons,kol,wr,gracz2)
-                    ai.choosebutton(buttons,kol,wr,gracz1,gracz2);
-                    sprawdz(gracz2);
-                }
+
             }
-
         }
-    }
 }
 //sprawdza czy ktoś wygrał
 int Game::sprawdz(const QString z)
@@ -119,47 +116,98 @@ int Game::sprawdz(const QString z)
     {
         for(int j=0;j<kol;j++)
         {
-            if(i+4<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z && buttons[j + (i+3) * kol]->text()==z &&  buttons[j + (i+4) * kol]->text()==z)
+            if(wr<10 && j<10)
             {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
-            }
-            if(i-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z && buttons[j + (i-3) * kol]->text()==z && buttons[j + (i-4) * kol]->text()==z)
+                if(i+2<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(i-2>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j+2<kol && buttons[j + (i) * kol]->text()==z && buttons[j + (i) * kol+1]->text()==z && buttons[j + (i) * kol+2]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j-2>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i) * kol-1]->text()==z && buttons[j + (i) * kol-2]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j+2<kol && i+2<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j-2>=0 && i-2>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j-2>=0 && i+2<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j+2<kol && i-2>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+            } else
             {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
-            }
-            if(j+4<kol && buttons[j + (i) * kol]->text()==z && buttons[j + (i) * kol+1]->text()==z && buttons[j + (i) * kol+2]->text()==z && buttons[j + (i) * kol+3]->text()==z && buttons[j + (i) * kol+4]->text()==z)
-            {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
-            }
-            if(j-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i) * kol-1]->text()==z && buttons[j + (i) * kol-2]->text()==z && buttons[j + (i) * kol-3]->text()==z && buttons[j + (i) * kol-4]->text()==z)
-            {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
-            }
-            if(j+4<kol && i+4<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z && buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z)
-            {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
-            }
-            if(j-4>=0 && i-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z && buttons[j + (i-3) * kol-3]->text()==z && buttons[j + (i-4) * kol-4]->text()==z)
-            {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
-            }
-            if(j-4>=0 && i+4<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z && buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z)
-            {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
-            }
-            if(j+4<kol && i-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z && buttons[j + (i-3) * kol+3]->text()==z && buttons[j + (i-4) * kol+4]->text()==z)
-            {
-                if(z==gracz1) koniec(gracz1); else koniec(gracz2);
-                return 1;
+                if(i+4<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z && buttons[j + (i+3) * kol]->text()==z &&  buttons[j + (i+4) * kol]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(i-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z && buttons[j + (i-3) * kol]->text()==z && buttons[j + (i-4) * kol]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j+4<kol && buttons[j + (i) * kol]->text()==z && buttons[j + (i) * kol+1]->text()==z && buttons[j + (i) * kol+2]->text()==z && buttons[j + (i) * kol+3]->text()==z && buttons[j + (i) * kol+4]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i) * kol-1]->text()==z && buttons[j + (i) * kol-2]->text()==z && buttons[j + (i) * kol-3]->text()==z && buttons[j + (i) * kol-4]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j+4<kol && i+4<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z && buttons[j + (i+3) * kol+3]->text()==z && buttons[j + (i+4) * kol+4]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j-4>=0 && i-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z && buttons[j + (i-3) * kol-3]->text()==z && buttons[j + (i-4) * kol-4]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j-4>=0 && i+4<wr && buttons[j + (i) * kol]->text()==z && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z && buttons[j + (i+3) * kol-3]->text()==z && buttons[j + (i+4) * kol-4]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
+                if(j+4<kol && i-4>=0 && buttons[j + (i) * kol]->text()==z && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z && buttons[j + (i-3) * kol+3]->text()==z && buttons[j + (i-4) * kol+4]->text()==z)
+                {
+                    if(z==gracz1) koniec(gracz1); else koniec(gracz2);
+                    return 1;
+                }
             }
         }
+    }
+    if(ai.test(buttons,kol,wr)==1)
+    {
+        qDebug()<<"REMIS";
+        koniec("REMIS");
+        return 0;
     }
     return 0;
 }

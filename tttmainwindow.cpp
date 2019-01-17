@@ -48,6 +48,7 @@ void TTTmainWindow::on_buttonBox_accepted()
     wiel_przyciskow=y/wiersze;
     hide();
     Game g;
+    //Game g(0,Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
     g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow);
     g.exec();
 
