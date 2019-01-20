@@ -33,6 +33,7 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     gracz1=znak_1gracza;
     gracz2=znak_2gracza;
 
+    print = QStringLiteral("QPushButton{font-size: %1px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}").arg(wiel_przyciskow);
     //ustawia wielkosc przyciskow
     const QSize btnSize = QSize(wiel_przyciskow, wiel_przyciskow);
 
@@ -47,7 +48,7 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     }
 
 
-
+   // "box"+static_cast<QString>(dbmanager->findUserBox(name)+48);
     QGridLayout *btnLayout = new QGridLayout(this);
 
     if(cofnij==true)
@@ -102,7 +103,7 @@ void Game::Klik()
                     cofnij_w_gracz1=i;
                     cofnij_k_gracz1=j;
                     buttons[j + i * kol]->setText(gracz1);
-                    buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
+                    buttons[j + i * kol]->setStyleSheet(print);
                     buttons[j + i * kol]->setDisabled(1);
                     sprawdz(gracz1);
                     gracz++;
@@ -125,7 +126,7 @@ void Game::Klik()
                     cofnij_w_gracz1=i;
                     cofnij_k_gracz1=j;
                     buttons[j + i * kol]->setText(gracz2);
-                    buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
+                    buttons[j + i * kol]->setStyleSheet(print);
                     buttons[j + i * kol]->setDisabled(1);
                     sprawdz(gracz2);
                     gracz--;

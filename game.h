@@ -42,6 +42,7 @@ public:
      QPushButton *xd;
      int cofnij1{},cofnij2{};
      bool back{};
+      QString print;
 
 private:
 
