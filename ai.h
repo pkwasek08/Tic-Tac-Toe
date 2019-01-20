@@ -25,12 +25,15 @@ public:
     void markButtons2(QPushButton **buttons,const int kol,int i,int j,QString znak);
     int specialCase(QPushButton **buttons, const int kol, const int wr, QString z ,QString znak_ai);
     int test(QPushButton **buttons, const int kol, const int wr);
+    int cofnij_w_ai{},cofnij_k_ai{};
+    int cofnij_proby=2;
 private:
    int w_r{},k_r{};
     int w_ai{},k_ai{};
     int temp_kolumn{},temp_wier{};
     int blokada{};
     int dir=0;
+    int font_rozmiar;
 
 };
 

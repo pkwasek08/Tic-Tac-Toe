@@ -15,11 +15,11 @@ TTTmainWindow::TTTmainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
     QDesktopWidget dw;
     x=dw.width();
-    y=dw.height()-110;
+    y=dw.height()-160;
     max_wr=y/30;
     max_kol=x/30;
     ui->spinBox_2->setMaximum(max_kol);
-     ui->spinBox->setMaximum(max_wr);
+    ui->spinBox->setMaximum(max_wr);
 
 
 }
@@ -49,17 +49,17 @@ void TTTmainWindow::on_buttonBox_accepted()
     hide();
     Game g;
     //Game g(0,Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
-    g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow);
+    g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow,cofnij);
     g.exec();
 
 
 
     if(g.tmp_restart==1)
     {
-        ui->spinBox->setValue(10);
-        ui->spinBox_2->setValue(10);
+        /* ui->spinBox->setValue(wiersze);
+        ui->spinBox_2->setValue(kolumny);
         ui->Znak->setCurrentIndex(0);
-        ui->Tryb->setCurrentIndex(0);
+        ui->Tryb->setCurrentIndex(tryb);*/
         show();
     }
 }
@@ -104,4 +104,14 @@ void TTTmainWindow::on_Tryb_activated(const QString &arg1)
 void TTTmainWindow::on_spinBox_valueChanged(const QString &arg1)
 {
 
+}
+
+
+void TTTmainWindow::on_radioButton_clicked(bool checked)
+{
+    if(checked ==true)
+        cofnij=true;
+    else {
+        cofnij=false;
+    }
 }

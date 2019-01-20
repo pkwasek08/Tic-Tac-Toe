@@ -1,4 +1,4 @@
-#include "tttmainwindow.h"
+#include "game.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

@@ -20,6 +20,7 @@ public:
     int wiel_przyciskow{};
     int x{},y{};
     int max_wr{},max_kol{};
+    bool cofnij{};
 private slots:
 
         void on_Zakoncz_clicked();
@@ -35,6 +36,10 @@ private slots:
         void on_Tryb_activated(const QString &arg1);
 
         void on_spinBox_valueChanged(const QString &arg1);
+
+        void on_radioButton_clicked();
+
+        void on_radioButton_clicked(bool checked);
 
 private:
     Ui::TTTmainWindow *ui;
