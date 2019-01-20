@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
-    <height>449</height>
+    <width>486</width>
+    <height>501</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -101,34 +101,12 @@
      </widget>
     </widget>
     <widget class="QWidget" name="game">
-     <widget class="QDialogButtonBox" name="buttonBox">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>380</y>
-        <width>301</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Viner Hand ITC</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="standardButtons">
-       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-      </property>
-     </widget>
      <widget class="QComboBox" name="Tryb">
       <property name="geometry">
        <rect>
         <x>50</x>
         <y>270</y>
-        <width>151</width>
+        <width>161</width>
         <height>41</height>
        </rect>
       </property>
@@ -333,22 +311,117 @@
        <number>1000</number>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton">
+     <widget class="QComboBox" name="comboBox">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>330</y>
-        <width>191</width>
-        <height>31</height>
+        <x>270</x>
+        <y>370</y>
+        <width>161</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>14</pointsize>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>Nie</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Tak</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>320</y>
+        <width>121</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Viner Hand ITC</family>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>gra z cofaniem</string>
+       <string>Cofanie</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_2">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>370</y>
+        <width>161</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>kółko</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>krzyżyk</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>320</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Viner Hand ITC</family>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Zaczyna</string>
+      </property>
+     </widget>
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>430</y>
+        <width>301</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Viner Hand ITC</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
       </property>
      </widget>
     </widget>

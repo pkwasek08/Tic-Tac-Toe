@@ -20,7 +20,7 @@ Game::Game(QWidget *parent) :
 
 }
 
-void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry,int wiel_przyciskow,bool cofnij) //int tryb
+void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry,int wiel_przyciskow,bool cofnij,QString zaczyna) //int tryb
 {
     //znak_1gracza - znak którym przy grze z AI posługuje się gracz
     //znak_2gracza - znak którym posługuje się AI
@@ -32,8 +32,36 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     kol =kol_ustawione;
     gracz1=znak_1gracza;
     gracz2=znak_2gracza;
+    if(tryb==1 && zaczyna=="x")
+    {
+        gracz1="x";
+        gracz2="o";
+    }
+    else if(tryb==1 && zaczyna=="o") {
+        gracz1="o";
+        gracz2="x";
+    }
 
-    print = QStringLiteral("QPushButton{font-size: %1px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}").arg(wiel_przyciskow);
+    if(tryb==2 && zaczyna=="x" && znak_1gracza=="o")
+    {
+        trybik=3;
+    }else if(tryb==2 && zaczyna=="o" && znak_1gracza=="x")
+    {
+        trybik=3;
+    }
+
+    if(gracz1=="x")
+        paint1 = QStringLiteral("QPushButton{font-size: %1px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}").arg(wiel_przyciskow);
+    else {
+        paint1 = QStringLiteral("QPushButton{font-size: %1px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}").arg(wiel_przyciskow);
+    }
+    if(gracz2=="x")
+        paint2 = QStringLiteral("QPushButton{font-size: %1px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}").arg(wiel_przyciskow);
+    else {
+        paint2 = QStringLiteral("QPushButton{font-size: %1px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}").arg(wiel_przyciskow);
+    }
+
+    ai.setColor(paint2);
     //ustawia wielkosc przyciskow
     const QSize btnSize = QSize(wiel_przyciskow, wiel_przyciskow);
 
@@ -48,7 +76,7 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     }
 
 
-   // "box"+static_cast<QString>(dbmanager->findUserBox(name)+48);
+    // "box"+static_cast<QString>(dbmanager->findUserBox(name)+48);
     QGridLayout *btnLayout = new QGridLayout(this);
 
     if(cofnij==true)
@@ -72,9 +100,10 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
             connect(buttons[j + i * kol],SIGNAL(released()),this,SLOT(Klik()));
         }
     }
-
-
+    qDebug()<<"trybik = "<<trybik;
     this->setLayout(btnLayout);
+    if(trybik==3)
+        ai.choosebutton(buttons,kol,wr,gracz1,gracz2);
 }
 Game::~Game()
 {
@@ -103,7 +132,7 @@ void Game::Klik()
                     cofnij_w_gracz1=i;
                     cofnij_k_gracz1=j;
                     buttons[j + i * kol]->setText(gracz1);
-                    buttons[j + i * kol]->setStyleSheet(print);
+                    buttons[j + i * kol]->setStyleSheet(paint1);
                     buttons[j + i * kol]->setDisabled(1);
                     sprawdz(gracz1);
                     gracz++;
@@ -126,7 +155,7 @@ void Game::Klik()
                     cofnij_w_gracz1=i;
                     cofnij_k_gracz1=j;
                     buttons[j + i * kol]->setText(gracz2);
-                    buttons[j + i * kol]->setStyleSheet(print);
+                    buttons[j + i * kol]->setStyleSheet(paint2);
                     buttons[j + i * kol]->setDisabled(1);
                     sprawdz(gracz2);
                     gracz--;
@@ -148,11 +177,19 @@ void Game::Klik()
                     cofnij_w_gracz1=i;
                     cofnij_k_gracz1=j;
                     buttons[j + i * kol]->setText(gracz1);
-                    buttons[j + i * kol]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(245,38,38);}");
+                    buttons[j + i * kol]->setStyleSheet(paint1);
                     buttons[j + i * kol]->setDisabled(1);
                     sprawdz(gracz1);
                     ai.choosebutton(buttons,kol,wr,gracz1,gracz2);
                     sprawdz(gracz2);
+                    if(back==true)
+                    {
+                        if(ai.cofnij_proby>0)
+                        {
+                            xd->setDisabled(0);
+                            xd->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(192,192,192);}");
+                        }
+                    }
                 }
             }
 
@@ -308,6 +345,10 @@ void Game::Cofnij()
         }
         else if(tryb==2 && ai.cofnij_proby==2)
         {
+            if(ai.tmp==1)
+                tmp=0;
+            if(ai.tmp==2)
+                tmp=1;
             buttons[cofnij_w_gracz1*kol+cofnij_k_gracz1]->setDisabled(0);
             buttons[cofnij_w_gracz1*kol+cofnij_k_gracz1]->setText("");
             buttons[cofnij_w_gracz1*kol+cofnij_k_gracz1]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(220,220,220);}");
@@ -316,9 +357,15 @@ void Game::Cofnij()
             buttons[ai.cofnij_w_ai*kol+ai.cofnij_k_ai]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(220,220,220);}");
             xd->setText("Cofnij (1 próba)");
             ai.cofnij_proby--;
+            xd->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(96,96,96);}");
+            xd->setDisabled(1);
         }
         else if(tryb==2 && ai.cofnij_proby==1)
         {
+            if(ai.tmp==1)
+                tmp=0;
+            if(ai.tmp==2)
+                tmp=1;
             buttons[cofnij_w_gracz1*kol+cofnij_k_gracz1]->setDisabled(0);
             buttons[cofnij_w_gracz1*kol+cofnij_k_gracz1]->setText("");
             buttons[cofnij_w_gracz1*kol+cofnij_k_gracz1]->setStyleSheet("QPushButton{font-size: 30px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(220,220,220);}");

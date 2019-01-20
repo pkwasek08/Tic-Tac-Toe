@@ -21,6 +21,7 @@ public:
     int x{},y{};
     int max_wr{},max_kol{};
     bool cofnij{};
+    QString zaczyna="o";
 private slots:
 
         void on_Zakoncz_clicked();
@@ -35,11 +36,9 @@ private slots:
 
         void on_Tryb_activated(const QString &arg1);
 
-        void on_spinBox_valueChanged(const QString &arg1);
+        void on_comboBox_activated(const QString &arg1);
 
-        void on_radioButton_clicked();
-
-        void on_radioButton_clicked(bool checked);
+        void on_comboBox_2_activated(const QString &arg1);
 
 private:
     Ui::TTTmainWindow *ui;

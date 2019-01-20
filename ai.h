@@ -27,6 +27,8 @@ public:
     int test(QPushButton **buttons, const int kol, const int wr);
     int cofnij_w_ai{},cofnij_k_ai{};
     int cofnij_proby=2;
+    QString paint;
+    void setColor(QString color);
 private:
    int w_r{},k_r{};
     int w_ai{},k_ai{};

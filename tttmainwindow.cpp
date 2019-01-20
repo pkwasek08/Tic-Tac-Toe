@@ -49,7 +49,7 @@ void TTTmainWindow::on_buttonBox_accepted()
     hide();
     Game g;
     //Game g(0,Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
-    g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow,cofnij);
+    g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow,cofnij,zaczyna);
     g.exec();
 
 
@@ -87,6 +87,7 @@ void TTTmainWindow::on_Tryb_activated(const QString &arg1)
 {
     if(arg1=="1 vs 1")
     {
+        ui->comboBox_2->setDisabled(1);
         tryb=0;
         ui->spinBox->setMinimum(3);
         ui->spinBox_2->setMinimum(3);
@@ -95,23 +96,26 @@ void TTTmainWindow::on_Tryb_activated(const QString &arg1)
     }
     else if(arg1=="1 vs AI")
     {
+        ui->comboBox_2->setDisabled(0);
         tryb=1;
         ui->spinBox->setMinimum(10);
         ui->spinBox_2->setMinimum(10);
     }
 }
 
-void TTTmainWindow::on_spinBox_valueChanged(const QString &arg1)
+
+void TTTmainWindow::on_comboBox_activated(const QString &arg1)
 {
-
-}
-
-
-void TTTmainWindow::on_radioButton_clicked(bool checked)
-{
-    if(checked ==true)
+    if(arg1=="Tak")
         cofnij=true;
     else {
         cofnij=false;
     }
+}
+
+void TTTmainWindow::on_comboBox_2_activated(const QString &arg1)
+{
+    if(arg1=="krzyżyk")
+        zaczyna="x";
+    else zaczyna="o";
 }

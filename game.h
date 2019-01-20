@@ -24,7 +24,7 @@ public:
     ~Game();
     int sprawdz(QString z="");
     void koniec(QString z="");
-    void Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry,int wiel_przyciskow,bool cofnij); //int tryb
+    void Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry,int wiel_przyciskow,bool cofnij,QString zaczyna); //int tryb
     int gracz{};
     int tryb{};
     QPushButton **buttons;
@@ -42,7 +42,9 @@ public:
      QPushButton *xd;
      int cofnij1{},cofnij2{};
      bool back{};
-      QString print;
+      QString paint1,paint2;
+      int trybik{};
+      int cofnij_tmp{};
 
 private:
 

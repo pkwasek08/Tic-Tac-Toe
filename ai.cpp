@@ -11,8 +11,12 @@ AI::AI()
     w_ai=0;
     k_ai=0;
     tmp=0;
-}
 
+}
+void AI::setColor(QString color)
+{
+    paint = color;
+}
 void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString gracz,QString znak_ai)
 {
     // 1 ruch komputera
@@ -43,6 +47,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString g
     }
     else
     {
+        tmp++;
         if(test(buttons,kol,wr)==0)
         {
             if(win(buttons,kol,wr,znak_ai,znak_ai)==0)
@@ -169,8 +174,8 @@ int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString gra
         for(int j=2;j<kol-2;j++)
         {
             if(buttons[j + (i) * kol]->text()==z && (buttons[i*kol+j-1]->text()=="" || buttons[i*kol+j+1]->text()=="" || buttons[(i-1)*kol+j]->text()=="" ||
-                    buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()=="") && ((buttons[i*kol+j-1]->text()==z && buttons[i*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j]->text()==z &&
-                                                      buttons[(i+1)*kol+j]->text()==z) || (buttons[(i-1)*kol+j-1]->text()==z && buttons[(i+1)*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j+1]->text()==z && buttons[(i+1)*kol+j-1]->text()==z)))
+                                                     buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()=="") && ((buttons[i*kol+j-1]->text()==z && buttons[i*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j]->text()==z &&
+                                                                                                                                                                                                                                                                                                                        buttons[(i+1)*kol+j]->text()==z) || (buttons[(i-1)*kol+j-1]->text()==z && buttons[(i+1)*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j+1]->text()==z && buttons[(i+1)*kol+j-1]->text()==z)))
             {
                 do
                 {
@@ -186,7 +191,7 @@ int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString gra
                 return 1;
             }
             else if(buttons[j + (i) * kol]->text()==z && buttons[i*kol+j-1]->text()=="" && (buttons[i*kol+j+1]->text()=="" || buttons[(i-1)*kol+j]->text()=="" ||
-                      buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()==""))
+                                                                                            buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()==""))
             {
                 do
                 {
@@ -214,7 +219,7 @@ int AI::markButtons(QPushButton **buttons,const int kol,int i,int j,QString znak
         cofnij_k_ai=j;
         Sleep(250);
         buttons[(i)*kol+j]->setText(znak);
-        buttons[(i)*kol+j]->setStyleSheet("QPushButton{font-size: 40px;font-family: Arial;color: rgb(255, 255, 255);background-color: rgb(38,56,76);}");
+        buttons[(i)*kol+j]->setStyleSheet(paint);
         buttons[(i)*kol+j]->setDisabled(1);
         return 1;
     }
