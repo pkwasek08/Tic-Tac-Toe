@@ -5,7 +5,6 @@
 
 AI::AI()
 {
-    //font_rozmiar=font;
     QTime time = QTime::currentTime();
     qsrand(static_cast<uint>(time.msec()));
     w_ai=0;
@@ -62,7 +61,7 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString g
                             {
                                 if(block(buttons,kol,wr,gracz,znak_ai)==0)
                                 {
-                                    if(direction_2(buttons,kol,wr,gracz,znak_ai)==0)
+                                    if(direction_2(buttons,kol,wr,znak_ai)==0)
                                     {
                                         do
                                         {
@@ -101,48 +100,32 @@ int AI::test(QPushButton **buttons, const int kol, const int wr)
 }
 
 //wybiera najlepszy kierunek dla ai
-int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString gracz,QString z)
+int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString z)
 {
     for(int i=0;i<wr;i++)
     {
         for(int j=0;j<kol;j++)
         {
-            if(i-2>=0 && i+2<wr && buttons[j + (i) * kol]->text()=="" && buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z && buttons[j + (i+1) * kol]->text()=="" && buttons[j + (i+2) * kol]->text()=="")
+            if(i-2>=0 && i+2<wr && buttons[j + (i) * kol]->text()=="" && ((buttons[j + (i-1) * kol]->text()==z && buttons[j + (i-2) * kol]->text()==z && buttons[j + (i+1) * kol]->text()=="" && buttons[j + (i+2) * kol]->text()=="")
+                    || (buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z && buttons[j + (i-1) * kol]->text()=="" && buttons[j + (i-2) * kol]->text()=="")))
             {
                 markButtons(buttons,kol,i,j, z);
                 return 1;
             }
-            if(i+2<wr && i-2>=0 && buttons[j + (i) * kol]->text()=="" && buttons[j + (i+1) * kol]->text()==z && buttons[j + (i+2) * kol]->text()==z && buttons[j + (i-1) * kol]->text()=="" && buttons[j + (i-2) * kol]->text()=="")
+            if(j+2<kol && j-2>=0 && buttons[j + (i) * kol]->text()=="" && ((buttons[j + (i) * kol+1]->text()==z && buttons[j + (i) * kol+2]->text()==z && buttons[j + (i) * kol-1]->text()=="" && buttons[j + (i) * kol-2]->text()=="")
+                    || (buttons[j + (i) * kol-1]->text()==z && buttons[j + (i) * kol-2]->text()==z && buttons[j + (i) * kol+1]->text()=="" && buttons[j + (i) * kol+2]->text()=="")))
             {
                 markButtons(buttons,kol,i,j, z);
                 return 1;
             }
-            if(j+2<kol && j-2>=0 && buttons[j + (i) * kol]->text()=="" && buttons[j + (i) * kol+1]->text()==z && buttons[j + (i) * kol+2]->text()==z && buttons[j + (i) * kol-1]->text()=="" && buttons[j + (i) * kol-2]->text()=="")
+            if(j-2>=0 && i-2>=0 && i+2<wr && j+2<kol && buttons[j + (i) * kol]->text()=="" && ((buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z && buttons[j + (i+1) * kol+1]->text()=="" && buttons[j + (i+2) * kol+2]->text()=="")
+                    || (buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z && buttons[j + (i-1) * kol-1]->text()=="" && buttons[j + (i-2) * kol-2]->text()=="")))
             {
                 markButtons(buttons,kol,i,j, z);
                 return 1;
             }
-            if(j+2<kol && j-2>=0 && buttons[j + (i) * kol]->text()=="" && buttons[j + (i) * kol-1]->text()==z && buttons[j + (i) * kol-2]->text()==z && buttons[j + (i) * kol+1]->text()=="" && buttons[j + (i) * kol+2]->text()=="")
-            {
-                markButtons(buttons,kol,i,j, z);
-                return 1;
-            }
-            if(j-2>=0 && i-2>=0 && i+2<wr && j+2<kol && buttons[j + (i) * kol]->text()=="" && buttons[j + (i-1) * kol-1]->text()==z && buttons[j + (i-2) * kol-2]->text()==z && buttons[j + (i+1) * kol+1]->text()=="" && buttons[j + (i+2) * kol+2]->text()=="")
-            {
-                markButtons(buttons,kol,i,j, z);
-                return 1;
-            }
-            if(j-2>=0 && i-2>=0 && i+2<wr && j+2<kol && buttons[j + (i) * kol]->text()=="" && buttons[j + (i+1) * kol+1]->text()==z && buttons[j + (i+2) * kol+2]->text()==z && buttons[j + (i-1) * kol-1]->text()=="" && buttons[j + (i-2) * kol-2]->text()=="")
-            {
-                markButtons(buttons,kol,i,j, z);
-                return 1;
-            }
-            if(j-2>=0 && i-2>=0 && i+2<wr && j+2<kol && buttons[j + (i) * kol]->text()=="" && buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z && buttons[j + (i+1) * kol-1]->text()=="" && buttons[j + (i+2) * kol-2]->text()=="")
-            {
-                markButtons(buttons,kol,i,j, z);
-                return 1;
-            }
-            if(j-2>=0 && i-2>=0 && i+2<wr && j+2<kol && buttons[j + (i) * kol]->text()=="" && buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z && buttons[j + (i-1) * kol+1]->text()=="" && buttons[j + (i-2) * kol+2]->text()=="")
+            if(j-2>=0 && i-2>=0 && i+2<wr && j+2<kol && buttons[j + (i) * kol]->text()=="" && ((buttons[j + (i-1) * kol+1]->text()==z && buttons[j + (i-2) * kol+2]->text()==z && buttons[j + (i+1) * kol-1]->text()=="" && buttons[j + (i+2) * kol-2]->text()=="")
+                    || (buttons[j + (i+1) * kol-1]->text()==z && buttons[j + (i+2) * kol-2]->text()==z && buttons[j + (i-1) * kol+1]->text()=="" && buttons[j + (i-2) * kol+2]->text()=="")))
             {
                 markButtons(buttons,kol,i,j, z);
                 return 1;
@@ -174,8 +157,8 @@ int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString gra
         for(int j=2;j<kol-2;j++)
         {
             if(buttons[j + (i) * kol]->text()==z && (buttons[i*kol+j-1]->text()=="" || buttons[i*kol+j+1]->text()=="" || buttons[(i-1)*kol+j]->text()=="" ||
-                                                     buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()=="") && ((buttons[i*kol+j-1]->text()==z && buttons[i*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j]->text()==z &&
-                                                                                                                                                                                                                                                                                                                        buttons[(i+1)*kol+j]->text()==z) || (buttons[(i-1)*kol+j-1]->text()==z && buttons[(i+1)*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j+1]->text()==z && buttons[(i+1)*kol+j-1]->text()==z)))
+                 buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()=="") && ((buttons[i*kol+j-1]->text()==z && buttons[i*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j]->text()==z
+                    && buttons[(i+1)*kol+j]->text()==z) || (buttons[(i-1)*kol+j-1]->text()==z && buttons[(i+1)*kol+j+1]->text()==z) || (buttons[(i-1)*kol+j+1]->text()==z && buttons[(i+1)*kol+j-1]->text()==z)))
             {
                 do
                 {
@@ -190,8 +173,14 @@ int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString gra
                 qDebug()<<"Losuje direction";
                 return 1;
             }
-            else if(buttons[j + (i) * kol]->text()==z && buttons[i*kol+j-1]->text()=="" && (buttons[i*kol+j+1]->text()=="" || buttons[(i-1)*kol+j]->text()=="" ||
-                                                                                            buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()==""))
+        }
+    }
+    for(int i=1;i<wr-1;i++)
+    {
+        for(int j=1;j<kol-1;j++)
+        {
+            if(buttons[j + (i) * kol]->text()==z && (buttons[i*kol+j-1]->text()=="" || buttons[i*kol+j+1]->text()=="" || buttons[(i-1)*kol+j]->text()=="" ||
+               buttons[(i+1)*kol+j]->text()=="" || buttons[(i-1)*kol+j-1]->text()=="" || buttons[(i+1)*kol+j+1]->text()=="" || buttons[(i-1)*kol+j+1]->text()=="" || buttons[(i+1)*kol+j-1]->text()==""))
             {
                 do
                 {

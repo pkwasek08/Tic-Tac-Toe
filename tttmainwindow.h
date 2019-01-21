@@ -40,6 +40,8 @@ private slots:
 
         void on_comboBox_2_activated(const QString &arg1);
 
+        void on_spinBox_valueChanged();
+
 private:
     Ui::TTTmainWindow *ui;
 };

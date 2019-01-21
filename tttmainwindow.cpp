@@ -6,7 +6,6 @@
 #include "game.h"
 #include <QDesktopWidget>
 
-
 TTTmainWindow::TTTmainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::TTTmainWindow)
@@ -17,11 +16,16 @@ TTTmainWindow::TTTmainWindow(QWidget *parent) :
     x=dw.width();
     y=dw.height()-160;
     max_wr=y/30;
-    max_kol=x/30;
     ui->spinBox_2->setMaximum(max_kol);
     ui->spinBox->setMaximum(max_wr);
-
-
+    ui->spinBox_2->setMinimum(3);
+    ui->spinBox_2->setValue(3);
+    ui->label_2->setAlignment(Qt::AlignCenter);
+    ui->label->setAlignment(Qt::AlignCenter);
+    wiersze = ui->spinBox->text().split(" ")[0].toInt();
+    wiel_przyciskow=y/wiersze;
+    max_kol=x/wiel_przyciskow;
+    ui->spinBox_2->setMaximum(max_kol);
 }
 
 TTTmainWindow::~TTTmainWindow()
@@ -48,7 +52,6 @@ void TTTmainWindow::on_buttonBox_accepted()
     wiel_przyciskow=y/wiersze;
     hide();
     Game g;
-    //Game g(0,Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
     g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow,cofnij,zaczyna);
     g.exec();
 
@@ -93,6 +96,8 @@ void TTTmainWindow::on_Tryb_activated(const QString &arg1)
         ui->spinBox_2->setMinimum(3);
         ui->spinBox->setValue(3);
         ui->spinBox_2->setValue(3);
+        ui->label_5->setText("Znak gracza1");
+        ui->label_5->setAlignment(Qt::AlignCenter);
     }
     else if(arg1=="1 vs AI")
     {
@@ -100,6 +105,8 @@ void TTTmainWindow::on_Tryb_activated(const QString &arg1)
         tryb=1;
         ui->spinBox->setMinimum(10);
         ui->spinBox_2->setMinimum(10);
+        ui->label_5->setText("Twoj znak");
+        ui->label_5->setAlignment(Qt::AlignCenter);
     }
 }
 
@@ -115,7 +122,15 @@ void TTTmainWindow::on_comboBox_activated(const QString &arg1)
 
 void TTTmainWindow::on_comboBox_2_activated(const QString &arg1)
 {
-    if(arg1=="krzyżyk")
-        zaczyna="x";
-    else zaczyna="o";
+    if(arg1=="komp")
+        zaczyna=znak2;
+    else zaczyna=znak1;
+}
+
+void TTTmainWindow::on_spinBox_valueChanged()
+{
+    wiersze = ui->spinBox->text().split(" ")[0].toInt();
+      wiel_przyciskow=y/wiersze;
+     max_kol=x/wiel_przyciskow;
+     ui->spinBox_2->setMaximum(max_kol);
 }
