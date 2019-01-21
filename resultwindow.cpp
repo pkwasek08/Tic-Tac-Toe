@@ -1,5 +1,9 @@
 #include "resultwindow.h"
 #include "ui_resultwindow.h"
+#include <QApplication>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QWidget>
 
 ResultWindow::ResultWindow(QWidget *parent) :
     QDialog(parent),

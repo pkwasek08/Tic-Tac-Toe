@@ -4,7 +4,9 @@
 #include <QtWidgets>
 #include "resultwindow.h"
 #include "ai.h"
-
+#include <QDesktopWidget>
+#include <QToolBar>
+#include <QMenuBar>
 using namespace std;
 
 AI ai;
