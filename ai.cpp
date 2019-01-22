@@ -1,7 +1,4 @@
 #include "ai.h"
-#include <QTime>
-#include <qglobal.h>
-#include <time.h>
 
 AI::AI()
 {
@@ -10,7 +7,6 @@ AI::AI()
     w_ai=0;
     k_ai=0;
     tmp=0;
-
 }
 void AI::setColor(QString color)
 {
@@ -70,7 +66,6 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString g
                                         }
                                         while(buttons[w_r*kol+k_r]->text()=="o" || buttons[w_r*kol+k_r]->text()=="x");
                                         markButtons(buttons,kol,w_r,k_r,znak_ai);
-                                        qDebug()<<"Losuje";
                                     }
                                 }
                             }
@@ -84,6 +79,8 @@ void AI::choosebutton(QPushButton **buttons,const int kol,const int wr,QString g
 
 int AI::random(int nMin, int nMax)  //losuje
 {
+    QTime time = QTime::currentTime();
+    qsrand(static_cast<uint>(time.msec()));
     return qrand() % (nMax - nMin + 1 ) + nMin;
 }
 int AI::test(QPushButton **buttons, const int kol, const int wr)
@@ -170,7 +167,6 @@ int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString z)
                 }
                 while(buttons[w_r*kol+k_r]->text()=="o" || buttons[w_r*kol+k_r]->text()=="x");
                 markButtons(buttons,kol,w_r,k_r, z);
-                qDebug()<<"Losuje direction";
                 return 1;
             }
         }
@@ -192,7 +188,6 @@ int AI::direction_2(QPushButton **buttons,const int kol,const int wr,QString z)
                 }
                 while(buttons[w_r*kol+k_r]->text()=="o" || buttons[w_r*kol+k_r]->text()=="x");
                 markButtons(buttons,kol,w_r,k_r, z);
-                qDebug()<<"Losuje direction ostatnie";
                 return 1;
             }
         }

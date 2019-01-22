@@ -1,23 +1,11 @@
 #include "game.h"
-#include "ui_game.h"
-#include <QPixmap>
-#include <QtWidgets>
-#include "resultwindow.h"
-#include "ai.h"
-#include <QDesktopWidget>
-#include <QToolBar>
-#include <QMenuBar>
 using namespace std;
-
-AI ai;
 
 Game::Game(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Game)
 {
     ui->setupUi(this);
-
-
 }
 
 void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QString znak_2gracza,int tryb_gry,int wiel_przyciskow,bool cofnij,QString zaczyna) //int tryb
@@ -83,6 +71,7 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
 
     if(cofnij==true)
     {
+        ai.cofnij_proby=2;
         bb = new QPushButton(this);
         buttonsLayout->setMenuBar(bb);
         if(tryb==2)

@@ -1,10 +1,6 @@
 #include "tttmainwindow.h"
 #include "ui_tttmainwindow.h"
-#include <string>
-#include<iostream>
-#include<cstdlib>
 #include "game.h"
-#include <QDesktopWidget>
 
 TTTmainWindow::TTTmainWindow(QWidget *parent) :
     QMainWindow(parent),

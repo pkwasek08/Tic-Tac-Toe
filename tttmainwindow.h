@@ -2,7 +2,7 @@
 #define TTTMAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QDesktopWidget>
 namespace Ui {
 class TTTmainWindow;
 }
@@ -18,8 +18,6 @@ public:
     int wiersze{},kolumny{};
     int tryb{};
     int wiel_przyciskow{};
-    int x{},y{};
-    int max_wr{},max_kol{};
     bool cofnij{};
     QString zaczyna="o";
 private slots:
@@ -43,6 +41,8 @@ private slots:
         void on_spinBox_valueChanged();
 
 private:
+    int max_wr{},max_kol{};
+    int x{},y{};
     Ui::TTTmainWindow *ui;
 };
 

@@ -1,14 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <ai.h>
 #include <QDialog>
-#include <QMainWindow>
+#include "ui_game.h"
+#include "resultwindow.h"
+#include "ai.h"
 #include "tttmainwindow.h"
-#include <QPixmap>
-#include <QtWidgets>
 #include <QApplication>
-#include <QWidget>
 #include <QGridLayout>
+#include <QtWidgets>
 
 namespace Ui {
 class Game;
@@ -26,13 +27,14 @@ public:
 
     QPushButton **buttons;
     int wr{},kol{};
-    int tmp_restart{};
+    int tmp_restart{};   
 
 private slots:
     void Klik(); //ruch gracza
     void Cofnij();
 
 private:
+    AI ai;
     Ui::Game *ui;
     int tmp,tmp2{};
     int w_r{},k_r{};

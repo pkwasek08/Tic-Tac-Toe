@@ -2,6 +2,7 @@
 #define RESULTWINDOW_H
 
 #include <QDialog>
+#include <QApplication>
 
 namespace Ui {
 class ResultWindow;
