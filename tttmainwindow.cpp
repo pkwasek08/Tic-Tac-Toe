@@ -9,8 +9,8 @@ TTTmainWindow::TTTmainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
     QDesktopWidget dw;
-    x=dw.width();
-    y=dw.height()-160;
+    x=dw.width()-20;
+    y=dw.height()-100;
     max_wr=y/30;
     ui->spinBox_2->setMaximum(max_kol);
     ui->spinBox->setMaximum(max_wr);
@@ -51,16 +51,8 @@ void TTTmainWindow::on_buttonBox_accepted()
     g.Plansza(wiersze,kolumny,znak1,znak2,tryb,wiel_przyciskow,cofnij,zaczyna);
     g.exec();
 
-
-
     if(g.tmp_restart==1)
-    {
-        /* ui->spinBox->setValue(wiersze);
-        ui->spinBox_2->setValue(kolumny);
-        ui->Znak->setCurrentIndex(0);
-        ui->Tryb->setCurrentIndex(tryb);*/
-        show();
-    }
+        show(); 
 }
 
 void TTTmainWindow::on_buttonBox_rejected()
@@ -110,7 +102,21 @@ void TTTmainWindow::on_Tryb_activated(const QString &arg1)
 void TTTmainWindow::on_comboBox_activated(const QString &arg1)
 {
     if(arg1=="Tak")
+    {
         cofnij=true;
+        QDesktopWidget dw;
+        x=dw.width()-20;
+        y=dw.height()-148;
+        max_wr=y/30;
+        ui->spinBox_2->setMaximum(max_kol);
+        ui->spinBox->setMaximum(max_wr);
+        ui->label_2->setAlignment(Qt::AlignCenter);
+        ui->label->setAlignment(Qt::AlignCenter);
+        wiersze = ui->spinBox->text().split(" ")[0].toInt();
+        wiel_przyciskow=y/wiersze;
+        max_kol=x/wiel_przyciskow;
+        ui->spinBox_2->setMaximum(max_kol);
+    }
     else {
         cofnij=false;
     }
@@ -120,7 +126,7 @@ void TTTmainWindow::on_comboBox_2_activated(const QString &arg1)
 {
     if(arg1=="komp")
         zaczyna=znak2;
-    else zaczyna=znak1;
+    else if(arg1=="ty") zaczyna=znak1;
 }
 
 void TTTmainWindow::on_spinBox_valueChanged()

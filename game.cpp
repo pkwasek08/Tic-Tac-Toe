@@ -14,7 +14,7 @@ void Game::Plansza(int wr_ustawione, int kol_ustawione,QString znak_1gracza,QStr
     //znak_2gracza - znak którym posługuje się AI
     //tryb 1 gracz vs gracz, tryb 2 gracz vs AI
     //back true = przycisk cofania aktywny
-
+    SET_SCREEN_ANGLE;
     if(tryb_gry==1) tryb=2;
     else tryb=1;
     back=cofnij;
